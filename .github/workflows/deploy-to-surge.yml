@@ -17,13 +17,11 @@ jobs:
         with:
           node-version: 12
 
-      - name: Install and Build 🔧
+      - name: Install Surge, Package and Build 🔧
         run: |
+          npm install -g surge
           npm install
           npm run-script build
-
-      - name: Install Surge 🛠
-        run: npm install -g surge
 
       - name: Deploy to Surge 🚀
         run:  surge ./dist ${{secrets.SURGE_DOMAIN}} --token ${{secrets.SURGE_TOKEN}}
