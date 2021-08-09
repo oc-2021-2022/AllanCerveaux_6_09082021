@@ -1,0 +1,62 @@
+@use 'sass:math';
+
+/// Event wrapper
+@mixin on-event($self: false) {
+  @if $self {
+    &,
+    &:hover,
+    &:active,
+    &:focus {
+      @content;
+    }
+  } @else {
+    &:hover,
+    &:active,
+    &:focus {
+      @content;
+    }
+  }
+}
+
+// Media Screen
+@mixin screen($size) {
+  $desktop: '(min-width: 1024px)';
+  $tablet: '(min-width: 768px) and (max-width: 1023px)';
+  $mobile: '(max-width: 767px)';
+  @if $size == desktop {
+    @media only screen and #{$desktop} {
+      @content;
+    }
+  } @else if $size == tablet {
+    @media only screen and #{$tablet} {
+      @content;
+    }
+  } @else if $size == mobile {
+    @media only screen and #{$mobile} {
+      @content;
+    }
+  } @else {
+    @media only screen and #{$size} {
+      @content;
+    }
+  }
+}
+
+/**
+ * Document this !
+ */
+@mixin box-shadow($left, $top, $blur, $color, $inset: false) {
+  @if $inset {
+    box-shadow: inset $left $top $blur $color;
+  } @else {
+    box-shadow: $left $top $blur $color;
+  }
+}
+
+@mixin transition {
+  @for $i from 1 through 5 {
+    &:nth-child(#{$i}) {
+      animation-delay: math.div($i, 10) + 2.7s;
+    }
+  }
+}

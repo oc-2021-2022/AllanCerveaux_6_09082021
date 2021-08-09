@@ -1,0 +1,21 @@
+{
+	"name": "AllanCerveaux_6_03082021",
+	"version": "1.0.0",
+	"main": "index.js",
+	"license": "MIT",
+	"scripts": {
+		"start": "parcel src/index.html --open",
+		"build": "parcel build src/index.html --public-url ./"
+	},
+	"devDependencies": {
+		"parcel-bundler": "^1.12.5",
+		"sass": "^1.35.1",
+		"surge": "^0.23.0",
+		"typescript": "^4.3.5"
+	},
+	"dependencies": {
+		"@fortawesome/fontawesome-free": "^5.15.3",
+		"fortawesome": "^0.0.1-security",
+		"modularscale-sass": "^3.0.10"
+	}
+}
