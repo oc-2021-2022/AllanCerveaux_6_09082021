@@ -1,6 +1,7 @@
 # AllanCerveaux_3_01072021
 
 ![status](https://img.shields.io/website?url=https%3A%2F%2Foc-2021-2022.github.io%2FAllanCerveaux_6_09082021%2F)
+![status](https://img.shields.io/website?url=https%3A%2F%2Foc-2021-2022.github.io%2FAllanCerveaux_6_09082021%2F)
 ![build](https://github.com/oc-2021-2022/AllanCerveaux_6_09082021/actions/workflows/deploy-to-gh-pages.yml/badge.svg)
 ![issue](https://img.shields.io/github/issues/oc-2021-2022/AllanCerveaux_6_09082021)
 ![liscence](https://img.shields.io/github/license/oc-2021-2022/AllanCerveaux_6_09082021)
@@ -13,7 +14,7 @@
 ## Liens Utiles 📑
 - [📜 Milesstones](https://github.com/oc-2021-2022/AllanCerveaux_6_09082021/milestones)
 - [🔖  Issues](https://github.com/oc-2021-2022/AllanCerveaux_6_09082021/issues)
-- [📋 Kanban](https://github.com/oc-2021-2022/AllanCerveaux_6_09082021/projects/2)
+- [📋 Kanban](https://github.com/oc-2021-2022/AllanCerveaux_6_09082021/projects/1)
 
 ## Requirement 🧰 
 ___
@@ -46,4 +47,5 @@ Distribué sous la licence MIT. Voir `LICENCE` pour plus d'informations.
 ___
 [@CerveauxAllan]("https://twitter.com/CerveauxAllan") - [cerveauxallanjean@gmail.com]("cerveauxallanjean@gmail.com")
 
+Develop version: [http://develop.allancerveaux-fisheye.surge.sh/](http://develop.allancerveaux-fisheye.surge.sh/)
 Liens du projet: [https://oc-2021-2022.github.io/AllanCerveaux_6_09082021](https://oc-2021-2022.github.io/AllanCerveaux_6_09082021/)
