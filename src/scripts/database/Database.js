@@ -1,23 +1,31 @@
-
 export class Database {
   constructor (dbName, dbVersion, dbUpgrade) {
     return new Promise((resolve, reject) => {
       this.db = null
-      if (!('indexedDB' in window)) reject(new Error('IndexedDB not supported !'))
+
+      if (!('indexedDB' in window)) reject(new Error('not supported'))
+
       const dbOpen = indexedDB.open(dbName, dbVersion)
+
       if (dbUpgrade) {
-        dbOpen.onupgradeneeded = event => {
-          dbUpgrade(dbOpen.result, event.oldVersion, event.newVersion)
+        dbOpen.onupgradeneeded = e => {
+          dbUpgrade(dbOpen.result, e.oldVersion, e.newVersion)
         }
       }
-      dbOpen.onsuccess = event => {
+
+      dbOpen.onsuccess = () => {
         this.db = dbOpen.result
         resolve(this)
       }
-      dbOpen.onerror = event => {
-        reject(new Error(`IndexedDB error: ${event.target.errorCode}`))
+
+      dbOpen.onerror = e => {
+        reject(new Error(`IndexedDB error: ${e.target.errorCode}`))
       }
     })
+  }
+
+  get connection () {
+    return this.db
   }
 
   set (storeName, name, value) {
@@ -32,7 +40,7 @@ export class Database {
       }
 
       transaction.onerror = () => {
-        reject(new Error(transaction.error))
+        reject(transaction.error)
       }
     })
   }
@@ -41,11 +49,14 @@ export class Database {
     return new Promise((resolve, reject) => {
       const transaction = this.db.transaction(storeName, 'readonly')
       const store = transaction.objectStore(storeName)
-
       const request = store.get(name)
+      request.onsuccess = () => {
+        resolve(request.result)
+      }
 
-      request.oncomplete = (event) => resolve(request.result)
-      request.onerror = event => reject(request.error)
+      request.onerror = () => {
+        reject(request.error)
+      }
     })
   }
 }
