@@ -11,7 +11,6 @@ export const objectify = (object) => {
   for (const key in object) {
     const obj = {}
     obj[key] = object[key]
-    console.log(obj)
     arr.push(obj)
   }
   return arr
