@@ -72,11 +72,11 @@ export class Network {
         if (await this.testRemoteAPI()) {
           return data[name]
         }
-        return data
+        return data[name]
       })
       .catch(this.error)
   }
-  
+
   /**
    * Return error
    * @param {Error} err
