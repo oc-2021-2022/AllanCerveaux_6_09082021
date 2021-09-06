@@ -19,4 +19,12 @@ export class PhotographerService {
       id: id
     })
   }
+
+  async getTagList () {
+    const arr = Array.from(await this.getAll())
+      .map(({ tags }) => tags)
+      .flat()
+    return arr
+      .filter((tag, index) => arr.indexOf(tag) === index)
+  }
 }
