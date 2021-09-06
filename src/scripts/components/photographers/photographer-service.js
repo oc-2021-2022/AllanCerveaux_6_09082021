@@ -24,7 +24,7 @@ export class PhotographerService {
     const arr = Array.from(await this.getAll())
       .map(({ tags }) => tags)
       .flat()
-    return arr
+    return await arr
       .filter((tag, index) => arr.indexOf(tag) === index)
   }
 }
