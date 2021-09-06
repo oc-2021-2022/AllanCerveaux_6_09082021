@@ -10,9 +10,16 @@ class TagFilter extends HTMLElement {
     this.photographer_service = new PhotographerService()
   }
 
+  async attributeChangedCallback (attrName, oldValue, newValue) {
+    if (oldValue !== newValue) {
+      this[attrName] = newValue
+    }
+  }
+
   async connectedCallback () {
     this.shadow = this.attachShadow({ mode: 'closed' })
     await this.render()
+
     this.tags = this.shadow.querySelectorAll('.tag')
     this.tags.forEach(this.handleClick)
   }
@@ -22,7 +29,10 @@ class TagFilter extends HTMLElement {
   }
 
   async tagList () {
-    return await (await this.photographer_service.getTagList()).map(tag => /* html */`<a class="tag" href="">#${tag}</a>`).join(' ')
+    return await JSON.parse(this.filter_data).map(tag => this.type === 'tag'
+      ? /* html */`<a class="tag" href="">#${tag}</a>`
+      : /* html */`<option class="tag" value="${tag}">#${tag}</option>`)
+      .join(' ')
   }
 
   handleClick = async (tag) => {
@@ -33,8 +43,20 @@ class TagFilter extends HTMLElement {
     })
   }
 
+  async template () {
+    if (this.type === 'select') {
+      return /* html */`
+      <select>
+        ${await this.tagList()}
+      </select>
+      `
+    } else if (this.type === 'tag') {
+      return `${await this.tagList()}`
+    }
+  }
+
   async render () {
-    this.shadow.innerHTML = /* html */ `${await this.tagList()}`
+    this.shadow.innerHTML = /* html */ `${await this.template()}`
   }
 }
 
