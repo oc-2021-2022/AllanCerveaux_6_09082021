@@ -3,7 +3,7 @@ import '../lib/router/RouterView'
 export class App extends HTMLElement {
   constructor () {
     super()
-    this.appName = 'FishEye'
+    this.image_path = './static/images'
   }
 
   connectedCallback () {
@@ -14,7 +14,7 @@ export class App extends HTMLElement {
   render () {
     return /* html */`
       <main>
-        <h1>Hello ${this.appName}</h1>
+        <img src="${this.image_path}/logo.svg" alt=""/>
         <router-view></router-view>
       </main>
     `

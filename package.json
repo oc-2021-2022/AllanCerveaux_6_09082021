@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "parcel src/index.html src/ressources/datas/* --open",
+    "start": "parcel src/index.html --open",
     "build": "parcel build src/index.html --public-url ./"
   },
   "devDependencies": {
@@ -50,6 +50,9 @@
         ".eot",
         ".ttf",
         ".ttf2"
+      ],
+      "data": [
+        ".json"
       ]
     }
   },
@@ -57,7 +60,11 @@
     "staticPath": [
       {
         "staticPath": "./src/resources/datas",
-        "staticOutDir": "data"
+        "staticOutDir": "static/data"
+      },
+      {
+        "staticPath": "./src/resources/images",
+        "staticOutDir": "static/images"
       }
     ]
   }
