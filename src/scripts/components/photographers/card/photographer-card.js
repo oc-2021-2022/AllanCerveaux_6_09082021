@@ -1,3 +1,5 @@
+import styles from 'bundle-text:./_photographer_card.scss'
+import * as portraits from 'url:../../../../resources/images/portraits/*.jpg'
 
 export class PhotographerCard extends HTMLElement {
   static get observedAttributes () {
@@ -13,13 +15,17 @@ export class PhotographerCard extends HTMLElement {
     this.shadow = this.attachShadow({ mode: 'closed' })
     this.photographer = JSON.parse(this.getAttribute('photographer'))
     this.render()
+    const style = document.createElement('style')
+    style.type = 'text/css'
+    style.appendChild(document.createTextNode(styles))
+    this.shadow.prepend(style)
   }
 
   render () {
     this.shadow.innerHTML = /* html */`
       <article class="card">
         <div class="card-header">
-          <img src="${this.image_path}/portraits/${this.photographer.portrait}" width="250"/>
+          <img src="${portraits[this.photographer.portrait.replace('.jpg', '')]}" width="250"/>
           <h3>${this.photographer.name}</h3>
         </div>
         <div class="card-content">
