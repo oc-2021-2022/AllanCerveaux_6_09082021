@@ -1,4 +1,4 @@
-import { PhotographerService } from '../photographers'
+import { PhotographerService } from '../../photographers'
 
 class TagFilter extends HTMLElement {
   static get observedAttributes () {

@@ -1,4 +1,4 @@
-import { PhotographerService } from './photographers'
+import { PhotographerService } from '../photographers'
 
 export class HomeComponent extends HTMLElement {
   constructor () {

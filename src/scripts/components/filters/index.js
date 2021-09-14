@@ -1,2 +1,3 @@
 export { FilterService } from './filter-service'
-export { TagFilter } from './tag-filter'
+export { TagFilter } from './tag-filter/tag-filter'
+
