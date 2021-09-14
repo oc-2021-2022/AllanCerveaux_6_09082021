@@ -1,6 +1,12 @@
+import media from '../../resources/datas/media.json'
+import photographers from '../../resources/datas/photographers.json'
 export class Network {
   apiUrl = process.env.API_URL
-  apiLocal = process.env.API_LOCAL_PATH
+  apiLocal = {
+    photographers,
+    media
+  }
+
   header = {
     method: 'GET',
     headers: new Headers({
@@ -19,7 +25,7 @@ export class Network {
   async testRemoteAPI () {
     return await fetch(this.apiUrl, this.header)
       .then(res => res.ok)
-      .catch(this.error)
+      .catch(() => false)
   }
 
   /**
@@ -49,12 +55,7 @@ export class Network {
       const jsons = await Promise.all(responses.map(res => res.json()))
       return await jsons
     }
-    return await fetch(this.apiUrl, this.header)
-      .then(res => res.json())
-      .then(async data => {
-        return data
-      })
-      .catch(this.error)
+    return await this.apiLocal
   }
 
   /**
@@ -65,16 +66,18 @@ export class Network {
    * @memberof Network
    */
   async fetchDataByName (name) {
-    const url = await this.testRemoteAPI() ? this.apiUrl : `${this.apiLocal}/${name}.json`
-    return await fetch(url, this.header)
-      .then(res => res.json())
-      .then(async data => {
-        if (await this.testRemoteAPI()) {
+    if (await this.testRemoteAPI()) {
+      return await fetch(this.apiUrl, this.header)
+        .then(res => res.json())
+        .then(async data => {
+          if (await this.testRemoteAPI()) {
+            return data[name]
+          }
           return data[name]
-        }
-        return data[name]
-      })
-      .catch(this.error)
+        })
+        .catch(this.error)
+    }
+    return await this.apiLocal[name][name]
   }
 
   /**

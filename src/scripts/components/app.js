@@ -1,5 +1,5 @@
+import logo from 'url:../../resources/images/logo.svg'
 import '../lib/router/RouterView'
-
 export class App extends HTMLElement {
   constructor () {
     super()
@@ -14,7 +14,7 @@ export class App extends HTMLElement {
   render () {
     return /* html */`
       <main>
-        <img src="${this.image_path}/logo.svg" alt=""/>
+        <img src="${logo}" alt=""/>
         <router-view></router-view>
       </main>
     `
