@@ -17,55 +17,13 @@
     "eslint-plugin-import": "^2.24.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
-    "parcel-bundler": "^1.12.5",
-    "parcel-plugin-custom-dist-structure": "^1.1.18",
-    "parcel-plugin-static-files-copy": "^2.6.0",
-    "sass": "^1.35.1",
-    "typescript": "^4.3.5"
+    "parcel": "^2.0.0-rc.0",
+    "sass": "^1.35.1"
   },
   "dependencies": {
     "@babel/runtime-corejs2": "^7.15.3",
     "@fortawesome/fontawesome-free": "^5.15.3",
     "fortawesome": "^0.0.1-security",
     "modularscale-sass": "^3.0.10"
-  },
-  "customDistStructure": {
-    "config": {
-      "css": [
-        ".css",
-        ".css.map"
-      ],
-      "js": [
-        ".js",
-        ".js.map"
-      ],
-      "images": [
-        ".jpg",
-        ".svg",
-        ".png"
-      ],
-      "fonts": [
-        ".woff",
-        ".woff2",
-        ".eot",
-        ".ttf",
-        ".ttf2"
-      ],
-      "data": [
-        ".json"
-      ]
-    }
-  },
-  "staticFiles": {
-    "staticPath": [
-      {
-        "staticPath": "./src/resources/datas",
-        "staticOutDir": "static/data"
-      },
-      {
-        "staticPath": "./src/resources/images",
-        "staticOutDir": "static/images"
-      }
-    ]
   }
 }
