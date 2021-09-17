@@ -1,1 +1,42 @@
-@import '../../../sass/main.scss';
+@import '../../../sass/helpers/index';
+@import '../../../sass/base/index';
+
+section {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: ms(5);
+}
+
+img {
+  align-self: center;
+  width: ms(7);
+}
+
+.title {
+  align-self: center;
+  font-weight: 500;
+  font-size: ms(3);
+  color: $primary-color;
+}
+
+tag-filter {
+  align-self: center;
+  display: flex;
+  justify-content: center;
+}
+
+photographer-component {
+  align-self: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: ms(4) ms(4);
+  width: 90%;
+}
