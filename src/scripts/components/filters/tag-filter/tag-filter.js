@@ -1,5 +1,5 @@
+import styles from 'bundle-text:./_tag_filter.scss'
 import { PhotographerService } from '../../photographers'
-
 class TagFilter extends HTMLElement {
   static get observedAttributes () {
     return ['type', 'filter_data']
@@ -22,6 +22,10 @@ class TagFilter extends HTMLElement {
 
     this.tags = this.shadow.querySelectorAll('.tag')
     this.tags.forEach(this.handleClick)
+    const style = document.createElement('style')
+    style.type = 'text/css'
+    style.appendChild(document.createTextNode(styles))
+    this.shadow.prepend(style)
   }
 
   disconnectedCallback () {
@@ -36,10 +40,18 @@ class TagFilter extends HTMLElement {
   }
 
   handleClick = async (tag) => {
+    let active = false
     tag.addEventListener('click', (event) => {
       event.preventDefault()
+      active = !active
+      if (active) {
+        tag.className += ' active'
+      } else {
+        tag.className = 'tag'
+      }
       const selectTagEvent = new CustomEvent('selected-tag', { bubbles: true, detail: { tag: event.target.textContent.replace('#', '') } })
       this.dispatchEvent(selectTagEvent)
+      this.active = !this.active
     })
   }
 

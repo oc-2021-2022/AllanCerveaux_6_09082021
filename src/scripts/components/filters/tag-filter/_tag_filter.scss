@@ -1,0 +1,9 @@
+@import '../../../../sass/components/tags';
+
+.tag {
+  @extend %tag;
+}
+
+.active {
+  @extend %active;
+}
