@@ -1,3 +1,10 @@
-h3 {
-  color: $dark-grey;
+@import '../../../sass/helpers/index';
+@import '../../../sass/base/index';
+
+photographer-card:nth-child(3n + 1) {
+  justify-self: end;
+}
+
+photographer-card:nth-child(3n) {
+  justify-self: center;
 }

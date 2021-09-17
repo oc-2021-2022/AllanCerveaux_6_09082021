@@ -1,5 +1,5 @@
+import styles from 'bundle-text:./_photographer.scss'
 import { FilterService } from '../filters'
-
 export class Photographers extends HTMLElement {
   static get observedAttributes () {
     return ['photographers', 'filter']
@@ -21,6 +21,11 @@ export class Photographers extends HTMLElement {
     this.shadow = this.attachShadow({ mode: 'closed' })
     await this.updateCardList()
     this.render()
+
+    const style = document.createElement('style')
+    style.type = 'text/css'
+    style.appendChild(document.createTextNode(styles))
+    this.shadow.prepend(style)
   }
 
   async updateCardList(filter = null) {
