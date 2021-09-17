@@ -25,16 +25,20 @@ export class PhotographerCard extends HTMLElement {
     this.shadow.innerHTML = /* html */`
       <article class="card">
         <div class="card-header">
-          <img src="${portraits[this.photographer.portrait.replace('.jpg', '')]}" width="250"/>
-          <h3>${this.photographer.name}</h3>
+          <a href="#">
+            <img class="card-image rounded" src="${portraits[this.photographer.portrait.replace('.jpg', '')]}" alt=""/>
+          </a>
+          <h3 class="title text-lg">
+            <a href="#">${this.photographer.name}</a>
+          </h3>
         </div>
         <div class="card-content">
-          <span>${this.photographer.city}, ${this.photographer.country}</span>
-          <p>${this.photographer.tagline.replace('&', "'")}</p>
-          <span>${this.photographer.price}</span>
+          <span class="city">${this.photographer.city}, ${this.photographer.country}</span>
+          <p class="tagline">${this.photographer.tagline.replace('&', "'")}</p>
+          <span class="price">${this.photographer.price}&euro;/jour</span>
         </div>
         <div class="card-footer">
-          ${this.photographer.tags.map(tag => /* html */`<span>#${tag}</span>`).join(' ')}
+          ${this.photographer.tags.map(tag => /* html */`<span class="tags">#${tag}</span>`).join(' ')}
         <div>
       </article>
     `

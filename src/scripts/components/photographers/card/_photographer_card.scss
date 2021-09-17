@@ -1,3 +1,28 @@
-@import '../../../../sass/main';
-h3 {
+@import '../../../../sass/components/card';
+
+.card {
+  @extend %card;
+  .card-header {
+    @extend %card-header;
+    .card-image {
+      @extend %card-image;
+    }
+    .rounded {
+      @extend %rounded;
+    }
+  }
+  .card-content {
+    @extend %card-content;
+    .city {
+      font-size: ms(1);
+      color: $primary-color;
+    }
+    .tagline,
+    .price {
+      font-size: ms(0);
+    }
+    .price {
+      color: $dark-grey;
+    }
+  }
 }
