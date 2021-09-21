@@ -36,10 +36,12 @@ export class HomeComponent extends HTMLElement {
   render () {
     this.shadow.innerHTML = /* html */`
     <section>
-      <nav>
-        <img src="${logo}" alt=""/>
-        <tag-filter type="tag" filter_data='${JSON.stringify(this.tags)}'></tag-filter>
-        <h1 class="title">Nos Photographes</h1>
+      <nav aria-label="Photographer Category" tabindex="1">
+        <a href="/" role="link" tabindex="2"> 
+          <img src="${logo}" alt="Fisheye Home page"/>
+        </a>
+        <tag-filter type="tag" filter_data='${JSON.stringify(this.tags)}' tabindex="2" aria-label="tags list"></tag-filter>
+        <h1 aria-role="header" class="title" tabindex="3">Nos Photographes</h1>
       </nav>
       <photographer-component photographers='${JSON.stringify(this.data)}'></photographer-component>
     </section>

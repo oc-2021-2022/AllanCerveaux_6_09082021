@@ -4,12 +4,16 @@
 %tag {
   border: 1px #c4c4c4 solid;
   border-radius: 50px;
-  padding: ms(-2) ms(0);
+  padding: ms(-4) ms(-2);
   text-decoration: none;
   color: $primary-color;
-  margin: 0 ms(-4);
-  &:hover {
+  margin: ms(-4);
+  @include on-event() {
     @extend %active;
+  }
+  @include screen('desktop') {
+    padding: ms(-2) ms(0);
+    margin: 0 ms(-4);
   }
 }
 

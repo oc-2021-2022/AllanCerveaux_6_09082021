@@ -26,8 +26,12 @@
 
 %card-image {
   object-fit: cover;
-  width: ms(8);
-  height: ms(8);
+  width: ms(7);
+  height: ms(7);
+  @include screen('desktop') {
+    width: ms(8);
+    height: ms(8);
+  }
 }
 
 %rounded {
@@ -41,4 +45,5 @@
 }
 
 %card-footer {
+  padding: ms(0) 0;
 }

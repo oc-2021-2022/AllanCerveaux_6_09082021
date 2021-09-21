@@ -1,4 +1,5 @@
 @import '../../../../sass/components/card';
+@import '../../../../sass/components/tag';
 
 .card {
   @extend %card;
@@ -25,4 +26,11 @@
       color: $dark-grey;
     }
   }
+  .card-footer {
+    @extend %card-footer;
+  }
+}
+
+.tag {
+  @extend %tag;
 }

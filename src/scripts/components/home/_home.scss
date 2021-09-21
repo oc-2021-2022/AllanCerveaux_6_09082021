@@ -11,32 +11,56 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  margin-bottom: ms(5);
+  flex-wrap: wrap;
+  margin-bottom: ms(2);
+  @include screen('desktop') {
+    margin-bottom: ms(5);
+  }
 }
 
 img {
   align-self: center;
-  width: ms(7);
+  width: ms(5);
+  @include screen('desktop') {
+    width: ms(7);
+  }
 }
 
 .title {
   align-self: center;
+  order: 1;
   font-weight: 500;
-  font-size: ms(3);
+  font-size: ms(0);
   color: $primary-color;
+  @include screen('desktop') {
+    order: unset;
+    font-size: ms(3);
+  }
 }
 
 tag-filter {
   align-self: center;
+  order: 2;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+  margin: ms(0) 0;
+  @include screen('desktop') {
+    order: unset;
+  }
 }
 
 photographer-component {
   align-self: center;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: ms(4) ms(4);
-  width: 90%;
+  grid-template-columns: repeat(1, 1fr);
+  gap: ms(4) 0px;
+  @include screen('tablet') {
+    grid-template-columns: repeat(2, 1fr);
+    gap: ms(4) ms(4);
+  }
+  @include screen('desktop') {
+    grid-template-columns: repeat(3, 1fr);
+    width: 90%;
+  }
 }
