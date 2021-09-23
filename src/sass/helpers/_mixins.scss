@@ -20,12 +20,12 @@
 
 // Media Screen
 @mixin screen($size) {
-  $large: '(min-width: 1440px)';
+  $hrq: '(min-width: 1441px)';
   $desktop: '(min-width: 1024px)';
   $tablet: '(min-width: 768px) and (max-width: 1023px)';
   $mobile: '(max-width: 767px)';
-  @if $size == $large {
-    @media only screen and #{$large} {
+  @if $size == hrq {
+    @media only screen and #{$hrq} {
       @content;
     }
   } @else if $size == desktop {
