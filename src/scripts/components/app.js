@@ -1,4 +1,4 @@
-import logo from 'url:../../resources/images/logo.svg'
+import styles from 'bundle-text:./_app.scss'
 import '../lib/router/RouterView'
 export class App extends HTMLElement {
   constructor () {
@@ -9,12 +9,15 @@ export class App extends HTMLElement {
   connectedCallback () {
     this.shadow = this.attachShadow({ mode: 'closed' })
     this.shadow.innerHTML = this.render()
+    const style = document.createElement('style')
+    style.type = 'text/css'
+    style.appendChild(document.createTextNode(styles))
+    this.shadow.prepend(style)
   }
 
   render () {
     return /* html */`
       <main>
-        <img src="${logo}" alt=""/>
         <router-view></router-view>
       </main>
     `

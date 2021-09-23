@@ -1,5 +1,6 @@
-import { PhotographerService } from './photographers'
-
+import styles from 'bundle-text:./_home.scss'
+import logo from 'url:../../../resources/images/logo.svg'
+import { PhotographerService } from '../photographers'
 export class HomeComponent extends HTMLElement {
   constructor () {
     super()
@@ -19,6 +20,11 @@ export class HomeComponent extends HTMLElement {
 
     const tagFilter = this.shadow.querySelector('tag-filter')
     tagFilter.addEventListener('selected-tag', ({ detail }) => this.updateFilterValue(detail.tag))
+
+    const style = document.createElement('style')
+    style.type = 'text/css'
+    style.appendChild(document.createTextNode(styles))
+    this.shadow.prepend(style)
   }
 
   updateFilterValue (tag) {
@@ -30,8 +36,13 @@ export class HomeComponent extends HTMLElement {
   render () {
     this.shadow.innerHTML = /* html */`
     <section>
-      <tag-filter type="tag" filter_data='${JSON.stringify(this.tags)}'></tag-filter>
-      <h1>Nos Photographes</h1>
+      <nav aria-label="Photographer Category" tabindex="1">
+        <a href="/" role="link" tabindex="2"> 
+          <img src="${logo}" alt="Fisheye Home page"/>
+        </a>
+        <tag-filter type="tag" filter_data='${JSON.stringify(this.tags)}' tabindex="2" aria-label="tags list"></tag-filter>
+        <h1 aria-role="header" class="title" tabindex="3">Nos Photographes</h1>
+      </nav>
       <photographer-component photographers='${JSON.stringify(this.data)}'></photographer-component>
     </section>
     `

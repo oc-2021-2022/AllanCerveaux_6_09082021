@@ -1,0 +1,49 @@
+@import '../helpers/index';
+@import '../base/index';
+
+%card {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  width: max-content;
+  text-align: center;
+}
+
+%card-header {
+  .title {
+    color: $text-primary;
+    font-weight: 500;
+    margin: ms(-2) 0;
+    a {
+      color: inherit;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+%card-image {
+  object-fit: cover;
+  width: ms(7);
+  height: ms(7);
+  @include screen('hrq') {
+    width: ms(8);
+    height: ms(8);
+  }
+}
+
+%rounded {
+  border-radius: 100%;
+}
+
+%card-content {
+  & p {
+    margin: ms(-2) 0;
+  }
+}
+
+%card-footer {
+  padding: ms(0) 0;
+}

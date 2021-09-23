@@ -23,18 +23,22 @@ export class PhotographerCard extends HTMLElement {
 
   render () {
     this.shadow.innerHTML = /* html */`
-      <article class="card">
+      <article class="card" tabindex="1" aria-label="Photographer Card">
         <div class="card-header">
-          <img src="${portraits[this.photographer.portrait.replace('.jpg', '')]}" width="250"/>
-          <h3>${this.photographer.name}</h3>
+          <a href="#" aria-label="${this.photographer.name}" tabindex="2">
+            <img class="card-image rounded" src="${portraits[this.photographer.portrait.replace('.jpg', '')]}" alt=""/>
+            <h3 class="title text-lg">
+              ${this.photographer.name}
+            </h3>
+          </a>
         </div>
         <div class="card-content">
-          <span>${this.photographer.city}, ${this.photographer.country}</span>
-          <p>${this.photographer.tagline.replace('&', "'")}</p>
-          <span>${this.photographer.price}</span>
+          <span class="city" tabindex="3">${this.photographer.city}, ${this.photographer.country}</span>
+          <p class="tagline" tabindex="4">${this.photographer.tagline.replace('&', "'")}</p>
+          <span class="price" tabindex="5">${this.photographer.price}&euro;/jour</span>
         </div>
-        <div class="card-footer">
-          ${this.photographer.tags.map(tag => /* html */`<span>#${tag}</span>`).join(' ')}
+        <div class="card-footer" tabindex="7">
+          <tag-filter type="tag" filter_data='${JSON.stringify(this.photographer.tags)}'></tag-filter>
         <div>
       </article>
     `
