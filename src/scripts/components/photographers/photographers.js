@@ -28,7 +28,7 @@ export class Photographers extends HTMLElement {
     this.shadow.prepend(style)
   }
 
-  async updateCardList(filter = null) {
+  async updateCardList (filter = null) {
     const filteredPhotographers = await this.filter_service.sortByTagsName(JSON.parse(this.photographers), filter)
     this.cardList = ``
     filteredPhotographers.forEach(photographer => {
