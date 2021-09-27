@@ -25,7 +25,7 @@ export class PhotographerCard extends HTMLElement {
     this.shadow.innerHTML = /* html */`
       <article class="card" tabindex="1" aria-label="Photographer Card">
         <div class="card-header">
-          <a href="#" aria-label="${this.photographer.name}" tabindex="2">
+          <a href="/photographer/${this.photographer.id}/" aria-label="${this.photographer.name}" tabindex="2">
             <img class="card-image rounded" src="${portraits[this.photographer.portrait.replace('.jpg', '')]}" alt=""/>
             <h3 class="title text-lg">
               ${this.photographer.name}
