@@ -16,8 +16,8 @@ export class PhotographerService {
 
   async getById (id) {
     return await this.query.run(await this.getAll(), {
-      id: id
-    })
+      id: parseInt(id)
+    }).shift()
   }
 
   async getTagList () {
