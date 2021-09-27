@@ -35,7 +35,7 @@ class TagFilter extends HTMLElement {
   async tagList () {
     return await JSON.parse(this.filter_data).map(tag => this.type === 'tag'
       ? /* html */`<a class="tag" href="" aria-label="${tag}">#${tag}</a>`
-      : /* html */`<option class="tag" value="${tag}">#${tag}</option>`)
+      : /* html */`<option class="tag" value="${tag}">${tag}</option>`)
       .join(' ')
   }
 
