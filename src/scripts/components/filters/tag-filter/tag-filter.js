@@ -29,7 +29,7 @@ class TagFilter extends HTMLElement {
   }
 
   disconnectedCallback () {
-    this.tags.forEach(tag => tag.removeEventListener('click'))
+    this.tags.forEach(tag => tag.removeEventListener('click', this))
   }
 
   async tagList () {
@@ -46,13 +46,18 @@ class TagFilter extends HTMLElement {
       active = !active
       if (active) {
         tag.className += ' active'
+        this.active = true
       } else {
         tag.className = 'tag'
+        this.active = false
       }
       const selectTagEvent = new CustomEvent('selected-tag', { bubbles: true, detail: { tag: event.target.textContent.replace('#', '') } })
       this.dispatchEvent(selectTagEvent)
-      this.active = !this.active
     })
+  }
+
+  sendTagEvent () {
+    
   }
 
   async template () {
