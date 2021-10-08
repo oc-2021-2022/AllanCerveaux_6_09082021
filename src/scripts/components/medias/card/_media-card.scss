@@ -1,2 +1,25 @@
-@import '../../../../sass/helpers/index';
-@import '../../../../sass/base/index';
+@import '../../../../sass/components/card';
+
+.card {
+  @extend %card;
+  margin: 0 ms(5);
+  img,
+  video {
+    @extend %card-image;
+    border-radius: ms(-1);
+  }
+  .card-content {
+    @extend %card-content;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .title,
+    .like {
+      font-weight: 500;
+      color: $primary-color;
+    }
+    .like {
+      font-weight: 600;
+    }
+  }
+}
