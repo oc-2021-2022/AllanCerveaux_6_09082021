@@ -8,6 +8,7 @@ class TagFilter extends HTMLElement {
   constructor () {
     super()
     this.photographer_service = new PhotographerService()
+    this.selected_tag = null
   }
 
   async attributeChangedCallback (attrName, oldValue, newValue) {
@@ -20,16 +21,12 @@ class TagFilter extends HTMLElement {
     this.shadow = this.attachShadow({ mode: 'closed' })
     await this.render()
 
-    this.tags = this.shadow.querySelectorAll('.tag')
+    this.tags = await this.shadow.querySelectorAll('.tag')
     this.tags.forEach(this.handleClick)
     const style = document.createElement('style')
     style.type = 'text/css'
     style.appendChild(document.createTextNode(styles))
     this.shadow.prepend(style)
-  }
-
-  disconnectedCallback () {
-    this.tags.forEach(tag => tag.removeEventListener('click', this))
   }
 
   async tagList () {
@@ -40,24 +37,18 @@ class TagFilter extends HTMLElement {
   }
 
   handleClick = async (tag) => {
-    let active = false
     tag.addEventListener('click', (event) => {
       event.preventDefault()
-      active = !active
-      if (active) {
+      const tags = Array.from(this.tags).filter(tag => tag.classList.contains('active'))
+      if (!tag.classList.contains('active')) {
         tag.className += ' active'
-        this.active = true
-      } else {
-        tag.className = 'tag'
-        this.active = false
       }
+      tags.forEach(tag => {
+        tag.className = 'tag'
+      })
       const selectTagEvent = new CustomEvent('selected-tag', { bubbles: true, detail: { tag: event.target.textContent.replace('#', '') } })
       this.dispatchEvent(selectTagEvent)
     })
-  }
-
-  sendTagEvent () {
-    
   }
 
   async template () {
