@@ -23,7 +23,9 @@ export class Media extends HTMLElement {
     await this.updateCardList()
 
     this.render()
+  }
 
+  setStyle () {
     const style = document.createElement('style')
     style.type = 'text/css'
     style.appendChild(document.createTextNode(styles))
@@ -73,9 +75,12 @@ export class Media extends HTMLElement {
         <div class="filter">
           <span>Trier par</span> <tag-filter type="select" filter_data='${JSON.stringify(['popularity', 'date', 'title'])}'><tag-filter>
         </div>
-        ${this.cardList}
-      <section>
+        <div class="cards">
+          ${this.cardList}
+        </div>
+      </section>
     `
+    this.setStyle()
     this.setElementEvent()
   }
 }

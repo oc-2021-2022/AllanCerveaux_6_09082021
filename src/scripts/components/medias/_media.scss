@@ -1,0 +1,8 @@
+@import '../../../sass/helpers/index';
+@import '../../../sass/base/index';
+
+.cards {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
