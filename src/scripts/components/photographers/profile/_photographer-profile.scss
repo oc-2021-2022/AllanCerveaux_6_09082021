@@ -1,0 +1,43 @@
+@import '../../../../sass/components/card';
+@import '../../../../sass/components/tag';
+
+.profile {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 ms(5);
+  background-color: $light-grey;
+  border-radius: ms(0);
+  padding: ms(3);
+
+  img {
+    align-self: center;
+    object-fit: cover;
+    height: ms(7);
+    width: ms(7);
+    border-radius: 100%;
+  }
+  .profile-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .city,
+    .tagline {
+      margin: ms(-2) 0;
+    }
+    .name {
+      color: $text-primary;
+      margin: 0;
+    }
+    .city {
+      color: $primary-color;
+    }
+    .tagline {
+      color: $dark-grey;
+      margin-bottom: ms(0);
+    }
+  }
+
+  .button {
+    background-color: $primary-color;
+  }
+}

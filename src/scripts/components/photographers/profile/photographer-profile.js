@@ -1,3 +1,4 @@
+import styles from 'bundle-text:./_photographer-profile.scss'
 import * as portraits from 'url:../../../../resources/images/portraits/*.jpg'
 import { Contact, PhotographerService } from '..'
 import { Lightbox } from '../../medias'
@@ -18,6 +19,11 @@ export class PhotographerProfile extends HTMLElement {
 
     this.contact = this.shadow.querySelector('#contact')
     this.contact.addEventListener('click', this.displayContact)
+
+    const style = document.createElement('style')
+    style.type = 'text/css'
+    style.appendChild(document.createTextNode(styles))
+    this.shadow.prepend(style)
   }
 
   disconnectCallback () {
@@ -41,12 +47,12 @@ export class PhotographerProfile extends HTMLElement {
     this.shadow.innerHTML = /* html */`
       <section class="profile">
         <div class="profile-info">
-          <h1>${this.photographer.name}</h1>
-          <h2>${this.photographer.city}, ${this.photographer.country}</h2>
-          <p>${this.photographer.tagline}<p>
+          <h1 class="name text-xl">${this.photographer.name}</h1>
+          <h2 class="city text-md">${this.photographer.city}, ${this.photographer.country}</h2>
+          <p class="tagline">${this.photographer.tagline}</p>
           <tag-filter type="tag" filter_data='${JSON.stringify(this.photographer.tags)}'></tag-filter>
         </div>
-        <button id="contact">Contactez-moi</button>
+        <button class="button" id="contact">Contactez-moi</button>
         <img src="${portraits[this.photographer.portrait.replace('.jpg', '')]}" alt="" width="250"/>
       </section>
       <media-component photographer-id="${this.photographer.id}"></media-component>
