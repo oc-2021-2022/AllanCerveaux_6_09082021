@@ -15,6 +15,7 @@ export class PhotographerCard extends HTMLElement {
     this.shadow = this.attachShadow({ mode: 'closed' })
     this.photographer = JSON.parse(this.getAttribute('photographer'))
     this.render()
+
     const style = document.createElement('style')
     style.type = 'text/css'
     style.appendChild(document.createTextNode(styles))

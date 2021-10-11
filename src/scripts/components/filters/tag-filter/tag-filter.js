@@ -44,7 +44,7 @@ class TagFilter extends HTMLElement {
         tag.className += ' active'
       }
       tags.forEach(tag => {
-        tag.className = 'tag'
+        tag.className = 'tag tag-button'
       })
       const selectTagEvent = new CustomEvent('selected-tag', { bubbles: true, detail: { tag: event.target.textContent.replace('#', '') } })
       this.dispatchEvent(selectTagEvent)
