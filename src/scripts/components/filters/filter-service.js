@@ -15,8 +15,8 @@ export class FilterService {
 
   async sortByName (data, type) {
     return await data.sort((current, next) => {
-      if (type.toLowerCase() === 'asc') return (current.name ?? current.title).localeCompare(next.name) === 1
-      else if (type.toLowerCase() === 'desc') return (current.name ?? current.title).localeCompare(next.name) === -1
+      if (type.toLowerCase() === 'asc') return (current.name ?? current.title).localeCompare(next.name ?? next.title) === 1
+      else if (type.toLowerCase() === 'desc') return (current.name ?? current.title).localeCompare(next.name ?? next.title) === -1
     })
   }
 
