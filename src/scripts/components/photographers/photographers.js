@@ -21,7 +21,9 @@ export class Photographers extends HTMLElement {
     this.shadow = this.attachShadow({ mode: 'closed' })
     await this.updateCardList()
     this.render()
+  }
 
+  setStyle () {
     const style = document.createElement('style')
     style.type = 'text/css'
     style.appendChild(document.createTextNode(styles))
@@ -39,6 +41,7 @@ export class Photographers extends HTMLElement {
 
   render () {
     this.shadow.innerHTML = /* html */`${this.cardList}`
+    this.setStyle()
   }
 }
 
