@@ -1,43 +1,92 @@
 @import '../../../../sass/components/card';
 @import '../../../../sass/components/tag';
+@import '../../../../sass/components/button';
 
 .profile {
-  display: flex;
-  justify-content: space-between;
-  margin: 0 ms(5);
-  background-color: $light-grey;
-  border-radius: ms(0);
-  padding: ms(3);
-
-  img {
-    align-self: center;
-    object-fit: cover;
-    height: ms(7);
-    width: ms(7);
-    border-radius: 100%;
+  margin: ms(1) 0;
+  display: grid;
+  grid-template-columns: 1fr 0.5fr;
+  grid-template-areas: 'info picture';
+  padding: 0 ms(-2);
+  @include screen('tablet') {
+    justify-items: center;
+  }
+  @include screen('desktop') {
+    margin: ms(2) ms(5);
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: 0.5fr 0.1fr 0.8fr;
+    grid-template-areas: 'info contact picture';
   }
   .profile-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    grid-area: info;
+    .name,
     .city,
     .tagline {
-      margin: ms(-2) 0;
+      margin: ms(-5) 0;
     }
     .name {
       color: $text-primary;
-      margin: 0;
+      font-size: ms(2);
+      font-weight: 500;
+      @include screen('desktop') {
+        margin-top: 0;
+        margin-bottom: ms(-2);
+        font-size: ms(2);
+      }
     }
     .city {
       color: $primary-color;
+      font-weight: 400;
+      @include screen('desktop') {
+        font-size: ms(1);
+      }
     }
     .tagline {
       color: $dark-grey;
-      margin-bottom: ms(0);
+      @include screen('desktop') {
+        margin-bottom: ms(0);
+      }
+    }
+    @include screen('desktop') {
+      justify-self: start;
+      align-self: start;
     }
   }
-
+  img {
+    object-fit: cover;
+    height: ms(5);
+    width: ms(5);
+    border-radius: 100%;
+    grid-area: picture;
+    @include screen('desktop') {
+      justify-self: end;
+      height: ms(6);
+      width: ms(6);
+    }
+  }
+  tag-filter {
+    display: flex;
+    flex-wrap: wrap;
+  }
   .button {
-    background-color: $primary-color;
+    @extend %button;
+    padding-top: ms(-2);
+    padding-bottom: ms(-2);
+    font-size: ms(1);
+    font-weight: 600;
+    height: max-content;
+    width: max-content;
+    position: fixed;
+    bottom: ms(2);
+    justify-self: center;
+    @include screen('desktop') {
+      padding: ms(0);
+      font-size: ms(0);
+      position: unset;
+      bottom: unset;
+      align-self: baseline;
+      grid-area: contact;
+    }
   }
 }

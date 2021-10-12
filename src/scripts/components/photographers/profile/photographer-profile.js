@@ -47,8 +47,8 @@ export class PhotographerProfile extends HTMLElement {
     this.shadow.innerHTML = /* html */`
       <section class="profile">
         <div class="profile-info">
-          <h1 class="name text-xl">${this.photographer.name}</h1>
-          <h2 class="city text-md">${this.photographer.city}, ${this.photographer.country}</h2>
+          <h1 class="name">${this.photographer.name}</h1>
+          <h2 class="city">${this.photographer.city}, ${this.photographer.country}</h2>
           <p class="tagline">${this.photographer.tagline}</p>
           <tag-filter type="tag" filter_data='${JSON.stringify(this.photographer.tags)}'></tag-filter>
         </div>
