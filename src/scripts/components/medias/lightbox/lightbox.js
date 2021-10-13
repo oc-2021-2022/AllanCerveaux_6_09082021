@@ -16,40 +16,41 @@ export class Lightbox extends HTMLElement {
     this.photographer = await this.photographer_service.getById(this.selectedMedia.photographerId)
     this.render()
   }
-
+  
   disconnectCallback () {
+    this.shadow.removeEventListener('click')
     this.shadow.querySelector('#next').removeEventListener('click')
     this.shadow.querySelector('#previous').removeEventListener('click')
     this.shadow.querySelector('#close').removeEventListener('click')
   }
-
+  
   setStyles () {
     const style = document.createElement('style')
     style.type = 'text/css'
     style.appendChild(document.createTextNode(styles))
     this.shadow.prepend(style)
   }
-
-  setElementEvent() {
+  
+  setElementEvent () {
+    this.shadow.querySelector('.lightbox').focus()
+    this.shadow.querySelector('.lightbox').addEventListener('keydown', this.navigationControls)
+    this.shadow.addEventListener('click', this.close)
     this.shadow.querySelector('#next').addEventListener('click', this.navigationControls)
     this.shadow.querySelector('#previous').addEventListener('click', this.navigationControls)
     this.shadow.querySelector('#close').addEventListener('click', this.close)
   }
 
-  mediaViewer (name) {
-    const photographerMedia = images[this.photographer.name.split(' ').shift()][name]
-    if (photographerMedia.includes('.mp4')) {
-      return /* html */`
-      <video class="media" controls src="${photographerMedia}">
-      </video>
-      `
-    }
-    return /* html */`<img class="media" src="${photographerMedia}" alt=""/>`
+
+
+  navigationControls = (event) => {
+    if (event.key === 'ArrowRight' || event.target.id === 'next') this.switchMedia('next')
+    else if (event.key === 'ArrowLeft' || event.target.id === 'previous') this.switchMedia('previous')
+    else if (event.key === 'Escape') this.remove()
   }
 
-  navigationControls = ({ target }) => {
+  switchMedia = (payload) => {
     const currentMedia = this.media.indexOf(this.selectedMedia)
-    let selectedControlToSwitchMedia = target.id === 'next' ? currentMedia + 1 : currentMedia - 1
+    let selectedControlToSwitchMedia = payload === 'next' ? currentMedia + 1 : currentMedia - 1
     if (selectedControlToSwitchMedia < 0) {
       selectedControlToSwitchMedia = this.media.length - 1
     } else if (selectedControlToSwitchMedia > this.media.length - 1) {
@@ -60,20 +61,32 @@ export class Lightbox extends HTMLElement {
     this.render()
   }
 
-  close = () => {
-    this.remove()
+  close = (event) => {
+    const { className, id } = event.target
+    if ((className !== 'media' && id !== 'previous' && id !== 'next') || id === 'close') this.remove()
+  }
+
+  mediaViewer (name) {
+    const photographerMedia = images[this.photographer.name.split(' ').shift()][name]
+    if (photographerMedia.includes('.mp4')) {
+      return /* html */`
+      <video tabindex="1" class="media" controls src="${photographerMedia}">
+      </video>
+      `
+    }
+    return /* html */`<img tabindex="1" class="media" src="${photographerMedia}" alt=""/>`
   }
 
   render () {
     this.shadow.innerHTML = /* html */`
-      <section class="lightbox">
+      <section class="lightbox" tabindex="0" aria-label="image closeup view">
         <div class="lightbox-media">
-          <a href="#" id="previous">&lsaquo;</a>
+          <a tabindex="3" aria-label="Previous image" href="#" id="previous">&lsaquo;</a>
           ${this.mediaViewer(this.selectedMedia.image ?? this.selectedMedia.video)}
-          <a href="#" id="close">&times;</a>
-          <a href="#" id="next">&rsaquo;</a>
+          <a aria-label="Close dialog" href="#" id="close">&times;</a>
+          <a aria-label="Next image" href="#" id="next">&rsaquo;</a>
         </div>
-        <h3 class="title">${this.selectedMedia.title}</h3>
+        <h3 tabindex="2" aria-label="${this.selectedMedia.title}" class="title">${this.selectedMedia.title}</h3>
       </section>
     `
     this.setStyles()
