@@ -87,6 +87,7 @@
     height: max-content;
     width: max-content;
     position: fixed;
+    z-index: 0;
     bottom: ms(2);
     justify-self: center;
     @include screen('desktop') {

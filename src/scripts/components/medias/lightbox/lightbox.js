@@ -15,11 +15,6 @@ export class Lightbox extends HTMLElement {
     this.shadow = this.attachShadow({ mode: 'closed' })
     this.photographer = await this.photographer_service.getById(this.selectedMedia.photographerId)
     this.render()
-
-    const style = document.createElement('style')
-    style.type = 'text/css'
-    style.appendChild(document.createTextNode(styles))
-    this.shadow.prepend(style)
   }
 
   disconnectCallback () {
@@ -28,7 +23,14 @@ export class Lightbox extends HTMLElement {
     this.shadow.querySelector('#close').removeEventListener('click')
   }
 
-  setElementEvent () {
+  setStyles () {
+    const style = document.createElement('style')
+    style.type = 'text/css'
+    style.appendChild(document.createTextNode(styles))
+    this.shadow.prepend(style)
+  }
+
+  setElementEvent() {
     this.shadow.querySelector('#next').addEventListener('click', this.navigationControls)
     this.shadow.querySelector('#previous').addEventListener('click', this.navigationControls)
     this.shadow.querySelector('#close').addEventListener('click', this.close)
@@ -38,11 +40,11 @@ export class Lightbox extends HTMLElement {
     const photographerMedia = images[this.photographer.name.split(' ').shift()][name]
     if (photographerMedia.includes('.mp4')) {
       return /* html */`
-      <video controls src="${photographerMedia}" width="250">
+      <video class="media" controls src="${photographerMedia}">
       </video>
       `
     }
-    return /* html */`<img src="${photographerMedia}" alt="" width="250"/>`
+    return /* html */`<img class="media" src="${photographerMedia}" alt=""/>`
   }
 
   navigationControls = ({ target }) => {
@@ -64,14 +66,17 @@ export class Lightbox extends HTMLElement {
 
   render () {
     this.shadow.innerHTML = /* html */`
-      <section>
-        <button id="close">Close</button>
-        ${this.mediaViewer(this.selectedMedia.image ?? this.selectedMedia.video)}
-        <h3>${this.selectedMedia.title}</h3>
-        <button id="previous">previous</button>
-        <button id="next">next</button>
+      <section class="lightbox">
+        <div class="lightbox-media">
+          <a href="#" id="previous">&lsaquo;</a>
+          ${this.mediaViewer(this.selectedMedia.image ?? this.selectedMedia.video)}
+          <a href="#" id="close">&times;</a>
+          <a href="#" id="next">&rsaquo;</a>
+        </div>
+        <h3 class="title">${this.selectedMedia.title}</h3>
       </section>
     `
+    this.setStyles()
     this.setElementEvent()
   }
 }
