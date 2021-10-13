@@ -2,11 +2,21 @@
 
 .card {
   @extend %card;
-  margin: 0 ms(5);
   img,
   video {
-    @extend %card-image;
-    border-radius: ms(-1);
+    object-fit: cover;
+    border-radius: ms(-4);
+    width: 21.6em;
+    height: 15em;
+    @include screen('desktop') {
+      width: ms(6);
+      height: ms(6);
+      font-size: ms(1);
+    }
+    @include screen('hrq') {
+      width: ms(8);
+      height: ms(8);
+    }
   }
   .card-content {
     @extend %card-content;

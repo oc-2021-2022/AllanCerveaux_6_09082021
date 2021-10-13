@@ -41,8 +41,8 @@ export class MediaCard extends HTMLElement {
           ${this.mediaViewer(this.media.image ?? this.media.video)}
         </div>
         <div class="card-content">
-          <h3 class="title text-md">${this.media.title}</h3>
-          <span class="like text-md">${this.media.likes} <i class="fas fa-heart"></i></span>
+          <h3 class="title">${this.media.title}</h3>
+          <span class="like">${this.media.likes} <i class="fas fa-heart"></i></span>
         </div>
       </article>
     `

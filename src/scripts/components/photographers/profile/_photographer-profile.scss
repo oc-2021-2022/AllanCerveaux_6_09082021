@@ -7,16 +7,19 @@
   display: grid;
   grid-template-columns: 1fr 0.5fr;
   grid-template-areas: 'info picture';
-  padding: 0 ms(-2);
   @include screen('tablet') {
+    margin: ms(1) ms(1);
     justify-items: center;
   }
   @include screen('desktop') {
-    margin: ms(2) ms(5);
+    margin: ms(2) ms(4);
     justify-items: center;
     align-items: center;
     grid-template-columns: 0.5fr 0.1fr 0.8fr;
     grid-template-areas: 'info contact picture';
+  }
+  @include screen('hrq') {
+    grid-template-columns: 0.2fr 0.1fr 0.8fr;
   }
   .profile-info {
     grid-area: info;
@@ -48,6 +51,9 @@
         margin-bottom: ms(0);
       }
     }
+    @include screen('tablet') {
+      justify-self: start;
+    }
     @include screen('desktop') {
       justify-self: start;
       align-self: start;
@@ -59,6 +65,9 @@
     width: ms(5);
     border-radius: 100%;
     grid-area: picture;
+    @include screen('tablet') {
+      justify-self: end;
+    }
     @include screen('desktop') {
       justify-self: end;
       height: ms(6);
