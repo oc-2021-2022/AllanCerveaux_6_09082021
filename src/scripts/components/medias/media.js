@@ -69,8 +69,10 @@ export class Media extends HTMLElement {
   }
 
   handleClick = (event) => {
-    const openLightboxEvent = new CustomEvent('toggle-lightbox', { bubbles: true, detail: { id: event.target.media.id, media: this.media } })
-    this.dispatchEvent(openLightboxEvent)
+    if (event.originalTarget.tagName === 'IMG') {
+      const openLightboxEvent = new CustomEvent('toggle-lightbox', { bubbles: true, detail: { id: event.target.media.id, media: this.media } })
+      this.dispatchEvent(openLightboxEvent)
+    }
   }
 
   render () {
