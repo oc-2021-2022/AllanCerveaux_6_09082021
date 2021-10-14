@@ -17,6 +17,14 @@ export class MediaCard extends HTMLElement {
     this.media = JSON.parse(this.getAttribute('media'))
     this.photographer = await this.photographer_service.getById(this.media.photographerId)
     this.render()
+  }
+
+  setElementEvent () {
+    const likes = this.shadow.querySelectorAll('.like')
+    likes.forEach(like => like.addEventListener('click', this.addLike))
+  }
+
+  setStyle () {
     const style = document.createElement('style')
     style.type = 'text/css'
     style.appendChild(document.createTextNode(styles))
@@ -34,6 +42,12 @@ export class MediaCard extends HTMLElement {
     return /* html */`<img src="${photographerMedia}" alt="" width="250"/>`
   }
 
+  addLike = (event) => {
+    if (!this.media.liked) this.media.likes += 1
+    this.media.liked = true
+    this.render()
+  }
+
   render () {
     this.shadow.innerHTML = /* html */`
       <article class="card">
@@ -42,10 +56,12 @@ export class MediaCard extends HTMLElement {
         </div>
         <div class="card-content">
           <h3 class="title">${this.media.title}</h3>
-          <span class="like">${this.media.likes} <i class="fas fa-heart"></i></span>
+          <div class="like">${this.media.likes} <i class="fas fa-heart"></i></div>
         </div>
       </article>
     `
+    this.setElementEvent()
+    this.setStyle()
   }
 }
 
