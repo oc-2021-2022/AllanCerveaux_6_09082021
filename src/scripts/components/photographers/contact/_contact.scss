@@ -1,0 +1,70 @@
+@import '../../../../sass/helpers/index';
+@import '../../../../sass/base/index';
+@import '../../../../sass/components/button';
+
+.contact {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: $secondary-color;
+  .contact-header {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    justify-content: space-between;
+    margin: ms(0) 0;
+    h2,
+    p {
+      font-size: ms(2);
+      font-weight: 200;
+      margin: 0;
+    }
+    #close {
+      font-size: ms(2);
+      color: $white;
+      cursor: pointer;
+    }
+  }
+
+  .contact-form {
+    width: 100%;
+    align-self: center;
+    .form-control {
+      display: flex;
+      flex-direction: column;
+      width: 90%;
+      margin: ms(0) auto;
+      input,
+      textarea {
+        border: none;
+        border-radius: ms(-4);
+        @include on-event() {
+          border: 1px solid $primary-color;
+        }
+      }
+      label {
+        margin-bottom: ms(0);
+        font-size: ms(1);
+      }
+      input {
+        height: ms(3);
+      }
+      textarea {
+        height: ms(5);
+      }
+      button {
+        @extend %button;
+        align-self: center;
+        width: max-content;
+        font-weight: 600;
+        padding: ms(-2) ms(3);
+      }
+    }
+  }
+}

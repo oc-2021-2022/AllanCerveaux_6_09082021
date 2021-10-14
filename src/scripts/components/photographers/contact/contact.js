@@ -9,14 +9,18 @@ export class Contact extends HTMLElement {
   connectedCallback () {
     this.shadow = this.attachShadow({ mode: 'closed' })
     this.render()
+  }
 
-    this.shadow.querySelector('#close').addEventListener('click', this.close)
-    this.shadow.querySelector('form').addEventListener('submit', this.sendMail)
-
+  setStyle () {
     const style = document.createElement('style')
     style.type = 'text/css'
     style.appendChild(document.createTextNode(styles))
     this.shadow.prepend(style)
+  }
+
+  setElementEvent () {
+    this.shadow.querySelector('#close').addEventListener('click', this.close)
+    this.shadow.querySelector('form').addEventListener('submit', this.sendMail)
   }
 
   close = () => {
@@ -31,33 +35,39 @@ export class Contact extends HTMLElement {
 
   render () {
     this.shadow.innerHTML = /* html */`
-      <section>
-        <h2>Contactez-moi</h2>
-        <p>${this.name}</p>
-        <form>
-          <div>
+      <section class="contact">
+        <div class="contact-header">
+          <div class="info">
+            <h2 class="title">Contactez-moi</h2>
+            <p class="name">${this.name}</p>
+          </div>
+          <span id="close">&times;</span>
+        </div>
+        <form class="contact-form">
+        <div class="form-control">
+          <label>Prénom</label>
+          <input type="text" name="first_name"/>
+        </div>
+          <div class="form-control">
             <label>Nom</label>
             <input type="text" name="last_name"/>
           </div>
-          <div>
-            <label>Prénom</label>
-            <input type="text" name="first_name"/>
-          </div>
-          <div>
+          <div class="form-control">
             <label>Email</label>
             <input type="email" name="email"/>
           </div>
-          <div>
+          <div class="form-control">
             <label>Message</label>
             <textarea name="message"></textarea>
           </div>
-          <div>
+          <div class="form-control">
             <button>Envoyer</button>
           </div>
         </form>
-        <button id="close">close</button>
       </section>
     `
+    this.setStyle()
+    this.setElementEvent()
   }
 }
 
