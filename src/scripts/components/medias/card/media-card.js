@@ -42,8 +42,10 @@ export class MediaCard extends HTMLElement {
     return /* html */`<img src="${photographerMedia}" alt="" width="250"/>`
   }
 
-  addLike = (event) => {
-    if (!this.media.liked) this.media.likes += 1
+  addLike = () => {
+    if (!this.media.liked) {
+      this.media.likes += 1
+    }
     this.media.liked = true
     this.render()
   }
