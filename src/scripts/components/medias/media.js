@@ -1,6 +1,7 @@
 import styles from 'bundle-text:./_media.scss'
 import { MediaService } from '.'
 import { FilterService } from '../filters'
+import { PhotographerService } from '../photographers'
 export class Media extends HTMLElement {
   static get observedAttributes () {
     return ['photographer-id']
@@ -10,6 +11,7 @@ export class Media extends HTMLElement {
     super()
     this.media_service = new MediaService()
     this.filter_service = new FilterService()
+    this.photographer_service = new PhotographerService()
     this.tag_selected = null
     this.reversed = false
   }
@@ -18,7 +20,9 @@ export class Media extends HTMLElement {
     this.shadow = this.attachShadow({ mode: 'closed' })
 
     const photographerId = this.getAttribute('photographer-id')
+    this.photographer = await this.photographer_service.getById(photographerId)
     this.media = await this.media_service.getPhotographerMedia(photographerId)
+    this.likeTotal = this.media.map(media => media.likes).reduce((acc, cur) => acc + cur)
 
     await this.updateCardList()
 
@@ -77,6 +81,15 @@ export class Media extends HTMLElement {
         </div>
         <div class="cards">
           ${this.cardList}
+        </div>
+        <div class="information">
+          <span class="likes">
+            ${this.likeTotal}
+            <i class="fas fa-heart"></i>
+          </span>
+          <span class="price">
+            ${this.photographer.price} &euro; / jour
+          </span>
         </div>
       </section>
     `

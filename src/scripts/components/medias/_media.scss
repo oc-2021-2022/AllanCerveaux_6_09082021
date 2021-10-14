@@ -28,6 +28,7 @@
     }
   }
 }
+
 .filter {
   span {
     margin-right: ms(0);
@@ -41,5 +42,25 @@
   }
   @include screen('desktop') {
     margin: ms(2) ms(4);
+  }
+}
+
+.information {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  right: ms(2);
+  border-radius: ms(-4) ms(-4) 0 0;
+  background-color: $secondary-color;
+  font-size: ms(1);
+  width: ms(6);
+  height: ms(2);
+  @include screen('mobile') {
+    display: none;
+  }
+  @include screen('tablet') {
+    display: none;
   }
 }
