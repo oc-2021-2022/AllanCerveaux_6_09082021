@@ -1,0 +1,107 @@
+@import '../../../../sass/helpers/index';
+@import '../../../../sass/base/index';
+@import '../../../../sass/components/button';
+
+.contact {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: $secondary-color;
+  @include screen('desktop') {
+    top: 5%;
+    left: 30%;
+    width: 35vw;
+    height: 90vh;
+    border-radius: ms(-3);
+  }
+  @include screen('(min-width: 1440px)') {
+    height: 80vh;
+  }
+  @include screen('hrq') {
+    height: 60vh;
+  }
+  .contact-header {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    justify-content: space-between;
+    margin: ms(0) 0;
+    h2,
+    p {
+      font-size: ms(2);
+      font-weight: 200;
+      margin: 0;
+      @include screen('desktop') {
+        font-size: ms(3);
+      }
+    }
+    #close {
+      font-size: ms(2);
+      color: $white;
+      cursor: pointer;
+      @include screen('desktop') {
+        font-size: ms(3);
+      }
+      @include screen('hrq') {
+        font-size: ms(4);
+      }
+    }
+  }
+
+  .contact-form {
+    width: 100%;
+    height: 100%;
+    align-self: center;
+    .form-control {
+      display: flex;
+      flex-direction: column;
+      width: 90%;
+      margin: ms(0) auto;
+      input,
+      textarea {
+        border: none;
+        border-radius: ms(-4);
+        @include on-event() {
+          border: 1px solid $primary-color;
+        }
+      }
+      label {
+        margin-bottom: ms(0);
+        font-size: ms(1);
+        @include screen('desktop') {
+          margin-bottom: ms(-2);
+        }
+      }
+      input {
+        height: ms(3);
+        @include screen('desktop') {
+          height: ms(3);
+        }
+      }
+      textarea {
+        height: ms(5);
+        @include screen('desktop') {
+          height: ms(3);
+        }
+      }
+      button {
+        @extend %button;
+        align-self: center;
+        width: max-content;
+        font-weight: 600;
+        padding: ms(-2) ms(3);
+        @include screen('desktop') {
+          align-self: start;
+          font-weight: 500;
+          padding: ms(0) ms(2);
+        }
+      }
+    }
+  }
+}

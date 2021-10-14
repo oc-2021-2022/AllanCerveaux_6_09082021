@@ -1,0 +1,20 @@
+@import '../../../sass/helpers/index';
+@import '../../../sass/base/index';
+
+photographer-card {
+  &:nth-child(3n + 1) {
+    justify-self: end;
+  }
+  &:nth-child(3n) {
+    justify-self: center;
+  }
+  @include screen('mobile') {
+    &:nth-child(3n + 1) {
+      justify-self: center;
+    }
+    &:nth-child(3n) {
+      justify-self: center;
+    }
+    justify-self: center;
+  }
+}
