@@ -1,4 +1,5 @@
 import styles from 'bundle-text:./_photographer-profile.scss'
+import logo from 'url:../../../../resources/images/logo.svg'
 import * as portraits from 'url:../../../../resources/images/portraits/*.jpg'
 import { Contact, PhotographerService } from '..'
 import { Lightbox } from '../../medias'
@@ -45,6 +46,11 @@ export class PhotographerProfile extends HTMLElement {
 
   render () {
     this.shadow.innerHTML = /* html */`
+      <nav aria-label="Photographer Category" tabindex="1">
+        <a href="/" role="link" tabindex="2"> 
+          <img src="${logo}" alt="Fisheye Home page"/>
+        </a>
+      </nav>
       <section class="profile">
         <div class="profile-info">
           <h1 class="name">${this.photographer.name}</h1>

@@ -1,7 +1,17 @@
 @import '../../../../sass/components/card';
 @import '../../../../sass/components/tag';
 @import '../../../../sass/components/button';
-
+nav {
+  margin: ms(1) ms(1);
+  @include screen('tablet') {
+    margin-right: ms(2);
+    margin-left: ms(2);
+  }
+  @include screen('desktop') {
+    margin-right: ms(4);
+    margin-left: ms(4);
+  }
+}
 .profile {
   margin: ms(1) 0;
   display: grid;

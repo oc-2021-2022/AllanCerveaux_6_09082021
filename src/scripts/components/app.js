@@ -8,7 +8,10 @@ export class App extends HTMLElement {
 
   connectedCallback () {
     this.shadow = this.attachShadow({ mode: 'closed' })
-    this.shadow.innerHTML = this.render()
+    this.render()
+  }
+
+  setStyle () {
     const style = document.createElement('style')
     style.type = 'text/css'
     style.appendChild(document.createTextNode(styles))
@@ -16,11 +19,12 @@ export class App extends HTMLElement {
   }
 
   render () {
-    return /* html */`
+    this.shadow.innerHTML = /* html */`
       <main>
         <router-view></router-view>
       </main>
     `
+    this.setStyle()
   }
 }
 
