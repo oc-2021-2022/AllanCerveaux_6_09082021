@@ -8,7 +8,7 @@
   text-decoration: none;
   color: $primary-color;
   margin: ms(-4);
-  @include on-event() {
+  &:hover {
     @extend %active;
   }
   @include screen('desktop') {

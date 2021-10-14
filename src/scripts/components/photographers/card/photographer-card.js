@@ -15,6 +15,7 @@ export class PhotographerCard extends HTMLElement {
     this.shadow = this.attachShadow({ mode: 'closed' })
     this.photographer = JSON.parse(this.getAttribute('photographer'))
     this.render()
+
     const style = document.createElement('style')
     style.type = 'text/css'
     style.appendChild(document.createTextNode(styles))
@@ -25,7 +26,7 @@ export class PhotographerCard extends HTMLElement {
     this.shadow.innerHTML = /* html */`
       <article class="card" tabindex="1" aria-label="Photographer Card">
         <div class="card-header">
-          <a href="#" aria-label="${this.photographer.name}" tabindex="2">
+          <a href="/photographer/${this.photographer.id}/" aria-label="${this.photographer.name}" tabindex="2">
             <img class="card-image rounded" src="${portraits[this.photographer.portrait.replace('.jpg', '')]}" alt=""/>
             <h3 class="title text-lg">
               ${this.photographer.name}

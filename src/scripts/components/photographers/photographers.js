@@ -21,14 +21,16 @@ export class Photographers extends HTMLElement {
     this.shadow = this.attachShadow({ mode: 'closed' })
     await this.updateCardList()
     this.render()
+  }
 
+  setStyle () {
     const style = document.createElement('style')
     style.type = 'text/css'
     style.appendChild(document.createTextNode(styles))
     this.shadow.prepend(style)
   }
 
-  async updateCardList(filter = null) {
+  async updateCardList (filter = null) {
     const filteredPhotographers = await this.filter_service.sortByTagsName(JSON.parse(this.photographers), filter)
     this.cardList = ``
     filteredPhotographers.forEach(photographer => {
@@ -39,6 +41,7 @@ export class Photographers extends HTMLElement {
 
   render () {
     this.shadow.innerHTML = /* html */`${this.cardList}`
+    this.setStyle()
   }
 }
 

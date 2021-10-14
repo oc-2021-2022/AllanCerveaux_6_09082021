@@ -66,6 +66,7 @@ export class Router {
       const match = this.current.match(route.path)
       if (match) {
         match.shift()
+        if (route.cb) route.cb.apply({}, match)
         return match
       }
     })
@@ -74,7 +75,7 @@ export class Router {
 
   getCurrentRoute () {
     // eslint-disable-next-line array-callback-return
-    return this.routes.find(route => route.path === this.getFragement())
+    return this.routes.find(route => this.getFragement().match(route.path))
   }
 }
 

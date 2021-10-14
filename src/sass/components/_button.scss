@@ -1,0 +1,14 @@
+@import '../helpers/index';
+@import '../base/index';
+
+%button {
+  background-color: $primary-color;
+  color: $white;
+  padding: ms(0);
+  border: none;
+  border-radius: ms(-3);
+  &:hover {
+    background-color: $secondary-color;
+    color: $black;
+  }
+}
