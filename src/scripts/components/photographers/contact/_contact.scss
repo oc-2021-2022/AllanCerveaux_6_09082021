@@ -13,6 +13,19 @@
   align-items: center;
   flex-direction: column;
   background-color: $secondary-color;
+  @include screen('desktop') {
+    top: 5%;
+    left: 30%;
+    width: 35vw;
+    height: 90vh;
+    border-radius: ms(-3);
+  }
+  @include screen('(min-width: 1440px)') {
+    height: 80vh;
+  }
+  @include screen('hrq') {
+    height: 60vh;
+  }
   .contact-header {
     display: flex;
     flex-direction: row;
@@ -24,16 +37,26 @@
       font-size: ms(2);
       font-weight: 200;
       margin: 0;
+      @include screen('desktop') {
+        font-size: ms(3);
+      }
     }
     #close {
       font-size: ms(2);
       color: $white;
       cursor: pointer;
+      @include screen('desktop') {
+        font-size: ms(3);
+      }
+      @include screen('hrq') {
+        font-size: ms(4);
+      }
     }
   }
 
   .contact-form {
     width: 100%;
+    height: 100%;
     align-self: center;
     .form-control {
       display: flex;
@@ -51,12 +74,21 @@
       label {
         margin-bottom: ms(0);
         font-size: ms(1);
+        @include screen('desktop') {
+          margin-bottom: ms(-2);
+        }
       }
       input {
         height: ms(3);
+        @include screen('desktop') {
+          height: ms(3);
+        }
       }
       textarea {
         height: ms(5);
+        @include screen('desktop') {
+          height: ms(3);
+        }
       }
       button {
         @extend %button;
@@ -64,6 +96,11 @@
         width: max-content;
         font-weight: 600;
         padding: ms(-2) ms(3);
+        @include screen('desktop') {
+          align-self: start;
+          font-weight: 500;
+          padding: ms(0) ms(2);
+        }
       }
     }
   }
