@@ -7,6 +7,8 @@
   display: grid;
   grid-template-columns: 1fr 0.5fr;
   grid-template-areas: 'info picture';
+  background-color: $light-grey;
+  padding: ms(1);
   @include screen('tablet') {
     margin: ms(1) ms(1);
     justify-items: center;
