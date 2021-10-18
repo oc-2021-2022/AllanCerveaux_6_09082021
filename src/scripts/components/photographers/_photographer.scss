@@ -2,19 +2,14 @@
 @import '../../../sass/base/index';
 
 photographer-card {
-  &:nth-child(3n + 1) {
-    justify-self: end;
-  }
-  &:nth-child(3n) {
-    justify-self: center;
-  }
-  @include screen('mobile') {
+  justify-self: center;
+  @include screen('desktop') {
+    justify-self: start;
     &:nth-child(3n + 1) {
-      justify-self: center;
+      justify-self: end;
     }
     &:nth-child(3n) {
       justify-self: center;
     }
-    justify-self: center;
   }
 }

@@ -16,21 +16,21 @@ export class Lightbox extends HTMLElement {
     this.photographer = await this.photographer_service.getById(this.selectedMedia.photographerId)
     this.render()
   }
-  
+
   disconnectCallback () {
     this.shadow.removeEventListener('click')
     this.shadow.querySelector('#next').removeEventListener('click')
     this.shadow.querySelector('#previous').removeEventListener('click')
     this.shadow.querySelector('#close').removeEventListener('click')
   }
-  
+
   setStyles () {
     const style = document.createElement('style')
     style.type = 'text/css'
     style.appendChild(document.createTextNode(styles))
     this.shadow.prepend(style)
   }
-  
+
   setElementEvent () {
     this.shadow.querySelector('.lightbox').focus()
     this.shadow.querySelector('.lightbox').addEventListener('keydown', this.navigationControls)
@@ -39,8 +39,6 @@ export class Lightbox extends HTMLElement {
     this.shadow.querySelector('#previous').addEventListener('click', this.navigationControls)
     this.shadow.querySelector('#close').addEventListener('click', this.close)
   }
-
-
 
   navigationControls = (event) => {
     if (event.key === 'ArrowRight' || event.target.id === 'next') this.switchMedia('next')
