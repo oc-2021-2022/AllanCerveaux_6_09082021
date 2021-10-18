@@ -3,6 +3,11 @@
 .tag-button {
   @extend %tag;
 }
+a,
+select,
+option {
+  font-family: $text-font-stack;
+}
 select {
   // Select Reset
   appearance: none;
