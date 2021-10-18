@@ -79,7 +79,7 @@ export class Media extends HTMLElement {
     this.shadow.innerHTML = /* html */`
       <section>
         <div class="filter">
-          <span>Trier par</span> <tag-filter type="select" filter_data='${JSON.stringify(['popularity', 'date', 'title'])}'><tag-filter>
+          <span>Trier par</span> <filter-component type="select" filter_data='${JSON.stringify(['popularity', 'date', 'title'])}'></filter-component>
         </div>
         <div class="cards">
           ${this.cardList}

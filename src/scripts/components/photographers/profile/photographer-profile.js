@@ -56,7 +56,7 @@ export class PhotographerProfile extends HTMLElement {
           <h1 class="name">${this.photographer.name}</h1>
           <h2 class="city">${this.photographer.city}, ${this.photographer.country}</h2>
           <p class="tagline">${this.photographer.tagline}</p>
-          <tag-filter type="tag" filter_data='${JSON.stringify(this.photographer.tags)}'></tag-filter>
+          <filter-component type="tag" filter_data='${JSON.stringify(this.photographer.tags)}'></filter-component>
         </div>
         <button class="button" id="contact">Contactez-moi</button>
         <img src="${portraits[this.photographer.portrait.replace('.jpg', '')]}" alt="" width="250"/>

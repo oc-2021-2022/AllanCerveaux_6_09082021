@@ -1,39 +1,34 @@
-import styles from 'bundle-text:./_tag_filter.scss'
-import { PhotographerService } from '../../photographers'
-class TagFilter extends HTMLElement {
+import stylesheet from 'bundle-text:./_tag_filter.scss'
+import { Component } from '../../../lib/Component'
+
+class FilterComponent extends Component {
+  styles = stylesheet
   static get observedAttributes () {
     return ['type', 'filter_data']
   }
 
-  constructor () {
-    super()
-    this.photographer_service = new PhotographerService()
-    this.selected_tag = null
-  }
-
-  async attributeChangedCallback (attrName, oldValue, newValue) {
-    if (oldValue !== newValue) {
-      this[attrName] = newValue
+  generatedFilterList () {
+    if (this.filter_data) {
+      return JSON.parse(this.filter_data).map(tag => this.type === 'tag'
+        ? /* html */`<a class="tag tag-button" href="" aria-label='${tag}'>#${tag}</a>`
+        : /* html */`<option class="tag tag-option" value='${tag}'>${tag}</option>`)
+        .join(' ')
     }
   }
 
-  async connectedCallback () {
-    this.shadow = this.attachShadow({ mode: 'closed' })
-    await this.render()
-
-    this.tags = await this.shadow.querySelectorAll('.tag')
-    this.tags.forEach(this.handleClick)
-    const style = document.createElement('style')
-    style.type = 'text/css'
-    style.appendChild(document.createTextNode(styles))
-    this.shadow.prepend(style)
+  template () {
+    if (this.type === 'select') {
+      return /* html */`
+        <select>${this.generatedFilterList()}</select>
+      `
+    } else if (this.type === 'tag') {
+      return this.generatedFilterList()
+    }
   }
 
-  async tagList () {
-    return await JSON.parse(this.filter_data).map(tag => this.type === 'tag'
-      ? /* html */`<a class="tag tag-button" href="" aria-label="${tag}">#${tag}</a>`
-      : /* html */`<option class="tag tag-option" value="${tag}">${tag}</option>`)
-      .join(' ')
+  setEvents () {
+    this.tags = this.shadow.querySelectorAll('.tag')
+    this.tags.forEach(this.handleClick)
   }
 
   handleClick = async (tag) => {
@@ -46,26 +41,15 @@ class TagFilter extends HTMLElement {
       tags.forEach(tag => {
         tag.className = 'tag tag-button'
       })
-      const selectTagEvent = new CustomEvent('selected-tag', { bubbles: true, detail: { tag: event.target.textContent.replace('#', '') } })
-      this.dispatchEvent(selectTagEvent)
+      this.dispatchEvent(new CustomEvent('selected-tag', { bubbles: true, detail: { tag: event.target.textContent.replace('#', '') } }))
     })
   }
 
-  async template () {
-    if (this.type === 'select') {
-      return /* html */`
-      <select>
-        ${await this.tagList()}
-      </select>
-      `
-    } else if (this.type === 'tag') {
-      return `${await this.tagList()}`
-    }
-  }
-
-  async render () {
-    this.shadow.innerHTML = /* html */ `${await this.template()}`
+  render () {
+    this.shadow.innerHTML = /* html */`
+    ${this.template()}
+  `
   }
 }
 
-customElements.define('tag-filter', TagFilter)
+customElements.define('filter-component', FilterComponent)

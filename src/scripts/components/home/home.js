@@ -18,7 +18,7 @@ export class HomeComponent extends HTMLElement {
 
     await this.render()
 
-    const tagFilter = this.shadow.querySelector('tag-filter')
+    const tagFilter = this.shadow.querySelector('filter-component')
     tagFilter.addEventListener('selected-tag', ({ detail }) => this.updateFilterValue(detail.tag))
 
     const style = document.createElement('style')
@@ -40,7 +40,7 @@ export class HomeComponent extends HTMLElement {
         <a href="/" role="link" tabindex="2"> 
           <img src="${logo}" alt="Fisheye Home page"/>
         </a>
-        <tag-filter type="tag" filter_data='${JSON.stringify(this.tags)}' tabindex="2" aria-label="tags list"></tag-filter>
+        <filter-component type="tag" filter_data='${JSON.stringify(this.tags)}' tabindex="2" aria-label="tags list"></filter-component>
         <h1 aria-role="header" class="title" tabindex="3">Nos Photographes</h1>
       </nav>
       <photographer-component photographers='${JSON.stringify(this.data)}'></photographer-component>

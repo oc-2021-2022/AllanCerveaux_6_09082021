@@ -39,7 +39,7 @@ export class PhotographerCard extends HTMLElement {
           <span class="price" tabindex="5">${this.photographer.price}&euro;/jour</span>
         </div>
         <div class="card-footer" tabindex="7">
-          <tag-filter type="tag" filter_data='${JSON.stringify(this.photographer.tags)}'></tag-filter>
+          <filter-component type="tag" filter_data='${JSON.stringify(this.photographer.tags)}'></filter-component>
         <div>
       </article>
     `
