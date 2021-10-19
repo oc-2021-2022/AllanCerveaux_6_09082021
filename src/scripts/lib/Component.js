@@ -1,21 +1,21 @@
 export class Component extends HTMLElement {
   styles = ''
   shadow = this.attachShadow({ mode: 'closed' })
+  data () {}
 
-  connectedCallback () {
-    if (!this.rendered) {
-      this.render()
-      this.setEvents()
-      this.setStyle()
-      this.rendered = true
-    }
+  async connectedCallback () {
+    await this.data()
+    await this.render()
+    await this.setStyle()
+    await this.setEvents()
   }
 
-  attributeChangedCallback (name, oldValue, newValue) {
+  async attributeChangedCallback (name, oldValue, newValue) {
     if (oldValue !== newValue) this[name] = newValue
-    this.render()
-    this.setEvents()
-    this.setStyle()
+    await this.data()
+    await this.render()
+    await this.setStyle()
+    await this.setEvents()
   }
 
   disconnectCallback () {
@@ -23,7 +23,7 @@ export class Component extends HTMLElement {
   }
 
   setStyle () {
-    const style = document.createElement('style')
+    const style = document.querySelector('style') !== null ? document.querySelector('style') : document.createElement('style')
     style.type = 'text/css'
     style.appendChild(document.createTextNode(this.styles))
     this.shadow.prepend(style)
