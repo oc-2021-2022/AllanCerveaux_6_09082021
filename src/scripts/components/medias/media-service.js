@@ -35,6 +35,7 @@ export class MediaService {
         data = await this.filter_service.sortByDate(arr, reversed ? 'ASC' : 'DESC')
         break
       default:
+        data = arr
         break
     }
     return data
