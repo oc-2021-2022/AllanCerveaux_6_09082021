@@ -1,8 +1,10 @@
-import styles from 'bundle-text:./_media.scss'
+import stylesheet from 'bundle-text:./_media.scss'
 import { MediaService } from '.'
+import { Component } from '../../lib/Component'
 import { FilterService } from '../filters'
 import { PhotographerService } from '../photographers'
-export class Media extends HTMLElement {
+export class Media extends Component {
+  styles = stylesheet
   static get observedAttributes () {
     return ['photographer-id']
   }
@@ -16,35 +18,28 @@ export class Media extends HTMLElement {
     this.reversed = false
   }
 
-  async connectedCallback () {
-    this.shadow = this.attachShadow({ mode: 'closed' })
-
+  async data () {
     const photographerId = this.getAttribute('photographer-id')
     this.photographer = await this.photographer_service.getById(photographerId)
     this.media = await this.media_service.getPhotographerMedia(photographerId)
     this.likeTotal = this.media.map(media => media.likes).reduce((acc, cur) => acc + cur)
+  }
 
+  async connectedCallback () {
+    this.shadow = this.attachShadow({ mode: 'closed' })
     await this.updateCardList()
-
     this.render()
   }
 
-  setStyle () {
-    const style = document.createElement('style')
-    style.type = 'text/css'
-    style.appendChild(document.createTextNode(styles))
-    this.shadow.prepend(style)
-  }
-
-  setElementEvent () {
+  setEvents () {
     this.mediaCard = this.shadow.querySelectorAll('media-card')
-    this.mediaCard.forEach(elm => elm.addEventListener('click', this.handleClick))
+    this.mediaCard.forEach(elm => elm.addEventListener('on-click-media', this.handleClick))
 
-    this.tagFilter = this.shadow.querySelector('tag-filter')
+    this.tagFilter = this.shadow.querySelector('filter-component  ')
     this.tagFilter.addEventListener('selected-tag', ({ detail }) => this.updateFilterValue(detail.tag))
   }
 
-  disconnectCallback () {
+  removeEvents () {
     this.mediaCard.removeEventListener('click')
     this.tagFilter.removeEventListener('selected-tag', this.updateFilterValue)
   }
@@ -56,33 +51,32 @@ export class Media extends HTMLElement {
       this.reversed = !this.reversed
     }
     this.tag_selected = tag
-    const filterMedia = await this.media_service.filterOption(tag, this.media, this.reversed)
-    this.updateCardList(filterMedia)
+    //@TODO: not good solution but work for moment
+    this.shadow.querySelector('.cards').innerHTML = await this.updateCardList(tag)
   }
 
-  async updateCardList (filter = this.media) {
-    this.cardList = ``
-    filter.forEach(media => {
-      this.cardList += /* html */`<media-card media='${JSON.stringify(media)}'></media-card>`
+  async updateCardList (filter = '') {
+    const filterMedia = await this.media_service.filterOption(filter, this.media, this.reversed)
+    let cardList = ``
+    filterMedia.forEach(media => {
+      cardList += /* html */`<media-card media='${JSON.stringify(media)}'></media-card>`
     })
-    this.render()
+    return cardList
   }
 
-  handleClick = (event) => {
-    if (event.originalTarget.tagName === 'IMG') {
-      const openLightboxEvent = new CustomEvent('toggle-lightbox', { bubbles: true, detail: { id: event.target.media.id, media: this.media } })
-      this.dispatchEvent(openLightboxEvent)
-    }
+  handleClick = async (event) => {
+    const openLightboxEvent = new CustomEvent('toggle-lightbox', { bubbles: true, detail: { id: event.target.media.id, media: this.media } })
+    this.dispatchEvent(openLightboxEvent)
   }
 
-  render () {
+  async render () {
     this.shadow.innerHTML = /* html */`
       <section>
         <div class="filter">
           <span>Trier par</span> <filter-component type="select" filter_data='${JSON.stringify(['popularity', 'date', 'title'])}'></filter-component>
         </div>
         <div class="cards">
-          ${this.cardList}
+          ${await this.updateCardList()}
         </div>
         <div class="information">
           <span class="likes">
@@ -95,8 +89,6 @@ export class Media extends HTMLElement {
         </div>
       </section>
     `
-    this.setStyle()
-    this.setElementEvent()
   }
 }
 

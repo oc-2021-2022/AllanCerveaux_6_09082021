@@ -1,8 +1,9 @@
-import styles from 'bundle-text:./_lightbox.scss'
-import * as images from 'url:../../../../resources/images/**/*'
+import stylesheet from 'bundle-text:./_lightbox.scss'
+import { Component } from '../../../lib/Component'
 import { PhotographerService } from '../../photographers'
-
-export class Lightbox extends HTMLElement {
+import '../media-viewer/media-viewer'
+export class Lightbox extends Component {
+  styles = stylesheet
   constructor (id, media) {
     super()
     this.id = id
@@ -11,33 +12,24 @@ export class Lightbox extends HTMLElement {
     this.photographer_service = new PhotographerService()
   }
 
-  async connectedCallback () {
-    this.shadow = this.attachShadow({ mode: 'closed' })
+  async data () {
     this.photographer = await this.photographer_service.getById(this.selectedMedia.photographerId)
-    this.render()
   }
 
-  disconnectCallback () {
-    this.shadow.removeEventListener('click')
-    this.shadow.querySelector('#next').removeEventListener('click')
-    this.shadow.querySelector('#previous').removeEventListener('click')
-    this.shadow.querySelector('#close').removeEventListener('click')
-  }
-
-  setStyles () {
-    const style = document.createElement('style')
-    style.type = 'text/css'
-    style.appendChild(document.createTextNode(styles))
-    this.shadow.prepend(style)
-  }
-
-  setElementEvent () {
+  setEvents () {
     this.shadow.querySelector('.lightbox').focus()
     this.shadow.querySelector('.lightbox').addEventListener('keydown', this.navigationControls)
     this.shadow.addEventListener('click', this.close)
     this.shadow.querySelector('#next').addEventListener('click', this.navigationControls)
     this.shadow.querySelector('#previous').addEventListener('click', this.navigationControls)
     this.shadow.querySelector('#close').addEventListener('click', this.close)
+  }
+
+  removeEvents () {
+    this.shadow.removeEventListener('click')
+    this.shadow.querySelector('#next').removeEventListener('click')
+    this.shadow.querySelector('#previous').removeEventListener('click')
+    this.shadow.querySelector('#close').removeEventListener('click')
   }
 
   navigationControls = (event) => {
@@ -56,7 +48,9 @@ export class Lightbox extends HTMLElement {
     }
     const newMedia = this.media[selectedControlToSwitchMedia]
     this.selectedMedia = newMedia
-    this.render()
+    this.shadow.querySelector('media-viewer').setAttribute('media', this.selectedMedia.video ?? this.selectedMedia.image)
+    this.shadow.querySelector('h3').setAttribute('aria-label', this.selectedMedia.title)
+    this.shadow.querySelector('h3').textContent = this.selectedMedia.title
   }
 
   close = (event) => {
@@ -64,31 +58,18 @@ export class Lightbox extends HTMLElement {
     if ((className !== 'media' && id !== 'previous' && id !== 'next') || id === 'close') this.remove()
   }
 
-  mediaViewer (name) {
-    const photographerMedia = images[this.photographer.name.split(' ').shift()][name]
-    if (photographerMedia.includes('.mp4')) {
-      return /* html */`
-      <video tabindex="1" class="media" controls src="${photographerMedia}">
-      </video>
-      `
-    }
-    return /* html */`<img tabindex="1" class="media" src="${photographerMedia}" alt=""/>`
-  }
-
   render () {
     this.shadow.innerHTML = /* html */`
       <section class="lightbox" tabindex="0" aria-label="image closeup view">
         <div class="lightbox-media">
           <a tabindex="3" aria-label="Previous image" href="#" id="previous">&lsaquo;</a>
-          ${this.mediaViewer(this.selectedMedia.image ?? this.selectedMedia.video)}
+          <media-viewer media="${this.selectedMedia.video ?? this.selectedMedia.image}" photographer='${JSON.stringify(this.photographer)}'></media-viewer>
           <a aria-label="Close dialog" href="#" id="close">&times;</a>
           <a aria-label="Next image" href="#" id="next">&rsaquo;</a>
         </div>
         <h3 tabindex="2" aria-label="${this.selectedMedia.title}" class="title">${this.selectedMedia.title}</h3>
       </section>
     `
-    this.setStyles()
-    this.setElementEvent()
   }
 }
 

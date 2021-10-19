@@ -1,24 +1,14 @@
-import styles from 'bundle-text:./_contact.scss'
+import stylesheet from 'bundle-text:./_contact.scss'
+import { Component } from '../../../lib/Component'
 
-export class Contact extends HTMLElement {
+export class Contact extends Component {
+  styles = stylesheet
   constructor (name) {
     super()
     this.name = name
   }
 
-  connectedCallback () {
-    this.shadow = this.attachShadow({ mode: 'closed' })
-    this.render()
-  }
-
-  setStyle () {
-    const style = document.createElement('style')
-    style.type = 'text/css'
-    style.appendChild(document.createTextNode(styles))
-    this.shadow.prepend(style)
-  }
-
-  setElementEvent () {
+  setEvents () {
     this.shadow.querySelector('#close').addEventListener('click', this.close)
     this.shadow.querySelector('form').addEventListener('submit', this.sendMail)
   }
@@ -66,8 +56,6 @@ export class Contact extends HTMLElement {
         </form>
       </section>
     `
-    this.setStyle()
-    this.setElementEvent()
   }
 }
 

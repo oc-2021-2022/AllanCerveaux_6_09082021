@@ -23,13 +23,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    .title,
-    .like {
+    .title {
       font-weight: 500;
       color: $primary-color;
-    }
-    .like {
-      font-weight: 600;
     }
   }
 }

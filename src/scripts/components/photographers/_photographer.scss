@@ -3,13 +3,4 @@
 
 photographer-card {
   justify-self: center;
-  @include screen('desktop') {
-    justify-self: start;
-    &:nth-child(3n + 1) {
-      justify-self: end;
-    }
-    &:nth-child(3n) {
-      justify-self: center;
-    }
-  }
 }

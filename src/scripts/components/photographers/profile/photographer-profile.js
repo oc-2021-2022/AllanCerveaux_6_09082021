@@ -1,35 +1,29 @@
-import styles from 'bundle-text:./_photographer-profile.scss'
+import stylesheet from 'bundle-text:./_photographer-profile.scss'
 import logo from 'url:../../../../resources/images/logo.svg'
 import * as portraits from 'url:../../../../resources/images/portraits/*.jpg'
 import { Contact, PhotographerService } from '..'
+import { Component } from '../../../lib/Component'
 import { Lightbox } from '../../medias'
-export class PhotographerProfile extends HTMLElement {
+export class PhotographerProfile extends Component {
+  styles = stylesheet
   constructor () {
     super()
     this.id = parseInt(window.location.pathname.match(/\d+/g))
     this.photographer_service = new PhotographerService()
   }
 
-  async connectedCallback () {
-    this.shadow = this.attachShadow({ mode: 'closed' })
-    this.photographer = await this.photographer_service.getById(this.id)
-    this.render()
-
-    this.mediaComponent = this.shadow.querySelector('media-component')
-    this.mediaComponent.addEventListener('toggle-lightbox', (event) => this.displayLightbox(event.detail.id, event.detail.media))
-
-    this.contact = this.shadow.querySelector('#contact')
-    this.contact.addEventListener('click', this.displayContact)
-
-    const style = document.createElement('style')
-    style.type = 'text/css'
-    style.appendChild(document.createTextNode(styles))
-    this.shadow.prepend(style)
-  }
-
-  disconnectCallback () {
+  removeEvents () {
     this.mediaComponent.removeEventListener('toggle-ligthbox')
     this.contact.removeEventListener('click')
+  }
+
+  setEvents () {
+    this.mediaComponent = this.shadow.querySelector('media-component')
+    this.contact = this.shadow.querySelector('#contact')
+    if (this.mediaComponent !== null && this.contact !== null) {
+      this.mediaComponent.addEventListener('toggle-lightbox', (event) => this.displayLightbox(event.detail.id, event.detail.media))
+      this.contact.addEventListener('click', this.displayContact)
+    }
   }
 
   displayContact = () => {
@@ -44,7 +38,8 @@ export class PhotographerProfile extends HTMLElement {
     }
   }
 
-  render () {
+  async render () {
+    this.photographer = await this.photographer_service.getById(this.id)
     this.shadow.innerHTML = /* html */`
       <nav aria-label="Photographer Category" tabindex="1">
         <a href="/" role="link" tabindex="2"> 
