@@ -46,9 +46,7 @@ class FilterComponent extends Component {
   }
 
   render () {
-    this.shadow.innerHTML = /* html */`
-    ${this.template()}
-  `
+    this.shadow.innerHTML = /* html */`${this.template()}`
   }
 }
 
