@@ -30,15 +30,24 @@
 }
 
 .filter {
+  display: flex;
   span {
-    margin-right: ms(0);
+    align-self: baseline;
+    margin: ms(1) 0;
     font-weight: 600;
+  }
+  filter-component {
+    position: absolute;
+    left: ms(6);
+    @include screen('tablet') {
+      left: ms(5);
+    }
   }
   @include screen('mobile') {
     display: none;
   }
   @include screen('tablet') {
-    margin: ms(1) ms(1);
+    margin: ms(1);
   }
   @include screen('desktop') {
     margin: ms(2) ms(4);
