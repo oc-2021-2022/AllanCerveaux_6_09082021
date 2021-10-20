@@ -3,34 +3,6 @@
 .tag-button {
   @extend %tag;
 }
-a,
-select,
-option {
-  font-family: $text-font-stack;
-}
-select {
-  // Select Reset
-  appearance: none;
-  background-color: $primary-color;
-  border: none;
-  margin: 0;
-  font-size: inherit;
-  cursor: inherit;
-  line-height: inherit;
-
-  padding: ms(1) ms(0) ms(1) ms(-2);
-  text-transform: capitalize;
-  font-weight: bold;
-  color: $white;
-  border-radius: ms(-4);
-  outline: none;
-  &:after {
-    border-radius: ms(0);
-  }
-  option.tag-option {
-    background-color: $secondary-color;
-  }
-}
 
 .active {
   @extend %active;
