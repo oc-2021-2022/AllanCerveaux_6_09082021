@@ -34,11 +34,11 @@ export class MediaCard extends Component {
     const photographerMedia = images[this.photographer.name.split(' ').shift()][name]
     if (photographerMedia.includes('.mp4')) {
       return /* html */`
-        <video src="${photographerMedia}" width="250">
+        <video src="${photographerMedia}">
         </video>
       `
     }
-    return /* html */`<img src="${photographerMedia}" alt="" width="250"/>`
+    return /* html */`<img src="${photographerMedia}" alt=""/>`
   }
 
   render () {
