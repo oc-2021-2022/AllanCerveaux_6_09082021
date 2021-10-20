@@ -4,4 +4,14 @@
 .like {
   font-weight: 600;
   color: $primary-color;
+  display: flex;
+  align-items: center;
+  height: ms(0);
+  span {
+    color: $secondary-color;
+    &:hover,
+    &.liked {
+      color: $primary-color;
+    }
+  }
 }

@@ -8,15 +8,14 @@ export class MediaLike extends Component {
   }
 
   setEvents () {
-    this.shadow.querySelector('i').addEventListener('click', this.addLike)
+    this.shadow.querySelector('span').addEventListener('click', this.addLike)
   }
 
   removeEvents () {
-    this.shadow.querySelector('i').removeEventListener('click')
+    this.shadow.querySelector('span').removeEventListener('click')
   }
 
   addLike = () => {
-    console.log('like')
     if (!this.liked) {
       this.dispatchEvent(new CustomEvent('on-like', { detail: true }))
     }
@@ -24,7 +23,10 @@ export class MediaLike extends Component {
 
   render () {
     this.shadow.innerHTML = /* html */`
-      <div class="like">${this.likes} <i class="fas fa-heart"></i></div>
+    <div class="like">
+      ${this.likes}
+      <span>&#x2764;</span>
+    </div>
     `
   }
 }
