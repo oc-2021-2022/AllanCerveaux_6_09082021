@@ -13,7 +13,7 @@ export class SelectTag extends Component {
   }
 
   setEvents () {
-    this.shadow.querySelector('.selected-option').addEventListener('click', this.toggleList)
+    this.shadow.querySelector('.select').addEventListener('click', this.toggleList)
     const tags = this.shadow.querySelectorAll('.tag')
     tags.forEach(tag => tag.addEventListener('click', this.sendTag))
   }
@@ -35,7 +35,8 @@ export class SelectTag extends Component {
     this.dispatchEvent(
       new CustomEvent('select-get-tag', { detail: event.target })
     )
-    this.toggleList()
+    this.shadow.querySelector('.options-list').classList.remove('toggle-option')
+    this.shadow.querySelector('.selected-option>.arrow').innerHTML = '&bigvee;'
     this.selectedTag(event.target)
   }
 
