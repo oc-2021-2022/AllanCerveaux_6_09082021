@@ -22,8 +22,9 @@ export class Component extends HTMLElement {
     this.removeEvents()
   }
 
-  setStyle () {
-    const style = document.querySelector('style') !== null ? document.querySelector('style') : document.createElement('style')
+  setStyle() {
+    console.log(this.originalName)
+    const style = this.shadow.querySelector('style') !== null ? this.shadow.querySelector('style') : document.createElement('style')
     style.type = 'text/css'
     style.appendChild(document.createTextNode(this.styles))
     this.shadow.prepend(style)
