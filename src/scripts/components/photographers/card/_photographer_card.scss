@@ -5,6 +5,9 @@
   @extend %card;
   .card-header {
     @extend %card-header;
+    a {
+      text-decoration: none;
+    }
     .card-image {
       @extend %card-image;
     }
