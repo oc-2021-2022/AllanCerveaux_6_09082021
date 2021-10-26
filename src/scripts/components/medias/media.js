@@ -34,6 +34,7 @@ export class Media extends Component {
   setEvents () {
     this.mediaCard = this.shadow.querySelectorAll('media-card')
     this.mediaCard.forEach(elm => elm.addEventListener('on-click-media', this.handleClick))
+    this.mediaCard.forEach(elm => elm.addEventListener('update-total-like', this.updateTotalLike))
 
     this.tagFilter = this.shadow.querySelector('filter-component  ')
     this.tagFilter.addEventListener('selected-tag', ({ detail }) => this.updateFilterValue(detail.tag))
@@ -64,6 +65,12 @@ export class Media extends Component {
     return cardList
   }
 
+  updateTotalLike = () => {
+    const elm = this.shadow.querySelector('div.information>div.likes>span.like-total')
+    const total = parseInt(elm.textContent)
+    elm.textContent = total + 1
+  }
+
   handleClick = async (event) => {
     const openLightboxEvent = new CustomEvent('toggle-lightbox', { bubbles: true, detail: { id: event.target.media.id, media: this.media } })
     this.dispatchEvent(openLightboxEvent)
@@ -79,10 +86,10 @@ export class Media extends Component {
           ${await this.updateCardList()}
         </div>
         <div class="information">
-          <span class="likes">
-            ${this.likeTotal}
-            <i class="fas fa-heart"></i>
-          </span>
+          <div class="likes">
+            <span class="like-total">${this.likeTotal}</span>
+            <span class="heart-icon">&#x2764;</span>
+          </div>
           <span class="price">
             ${this.photographer.price} &euro; / jour
           </span>

@@ -9,6 +9,7 @@
   height: ms(0);
   span {
     color: $secondary-color;
+    cursor: pointer;
     &:hover,
     &.liked {
       color: $primary-color;

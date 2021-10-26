@@ -25,6 +25,7 @@ export class MediaCard extends Component {
       const likes = parseInt(target.getAttribute('likes'))
       target.setAttribute('liked', detail)
       target.setAttribute('likes', likes + 1)
+      this.dispatchEvent(new CustomEvent('update-total-like'))
     }))
 
     this.shadow.querySelector('.card-header').addEventListener('click', () => this.dispatchEvent(new CustomEvent('on-click-media', {})))
