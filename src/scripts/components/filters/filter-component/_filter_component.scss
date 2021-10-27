@@ -2,6 +2,7 @@
 
 .tag-button {
   @extend %tag;
+  font-family: $text-font-stack;
 }
 
 .active {

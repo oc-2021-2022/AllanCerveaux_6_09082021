@@ -57,7 +57,7 @@ export class SelectTag extends Component {
     <div class="select">
       <div class="selected-option">
         <span class="option">Popularity</span>
-        <i class="arrow">&bigvee;</i>
+        <span class="arrow">&bigvee;</span>
       </div>
       <ul class="options-list">${JSON.parse(this.options).map(tag => /* html */`<li class="tag tag-option" data-tag="${tag}">${tag}</li>`).join('')}</ul>
     </div>
