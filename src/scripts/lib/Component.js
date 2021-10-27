@@ -33,6 +33,7 @@ export class Component extends HTMLElement {
   async attributeChangedCallback (name, oldValue, newValue) {
     if (oldValue !== newValue) {
       this[name] = newValue
+      await this.data()
       await this.render()
       await this.setStyle()
       await this.setListener()
