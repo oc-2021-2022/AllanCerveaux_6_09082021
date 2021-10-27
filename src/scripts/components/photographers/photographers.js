@@ -14,15 +14,15 @@ export class Photographers extends Component {
 
   async updateCardList (filter = null) {
     const filteredPhotographers = await this.filter_service.sortByTagsName(JSON.parse(this.photographers), filter)
-    let cardList = ``
-    filteredPhotographers.forEach(photographer => {
-      cardList += /* html */`<photographer-card photographer='${JSON.stringify(photographer)}'></photographer-card>`
-    })
-    return await cardList
+    return await filteredPhotographers.map(photographer => /* html */`<photographer-card photographer='${JSON.stringify(photographer)}'></photographer-card>`).join(' ')
   }
 
   async render () {
     this.shadow.innerHTML = /* html */`${await this.updateCardList(this.filter)}`
+    const cards = this.shadow.querySelectorAll('photographer-card')
+    cards.forEach(element => {
+      element.addEventListener('selected-tag', (event) => this.dispatchEvent(new CustomEvent('selected-tag', { detail: event.detail })))
+    })
   }
 }
 
