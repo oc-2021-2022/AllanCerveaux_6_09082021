@@ -10,13 +10,10 @@ export class PhotographerCard extends Component {
 
   setEvents () {
     this.shadow.querySelector('filter-component')
-      .addEventListener('selected-tag', (event) => {
-        console.log('selected-tag', this.localName)
-        this.dispatchEvent(new CustomEvent('selected-tag', { detail: event.detail }))
-      })
+      .addEventListener('selected-tag', (event) => this.dispatchEvent(new CustomEvent('selected-tag', { detail: event.detail })))
   }
 
-  render() {
+  render () {
     const photographer = JSON.parse(this.photographer)
     this.shadow.innerHTML = /* html */`
       <article class="card" tabindex="1" aria-label="Photographer Card">
