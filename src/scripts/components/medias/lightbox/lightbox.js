@@ -26,10 +26,10 @@ export class Lightbox extends Component {
   }
 
   removeEvents () {
-    this.shadow.removeEventListener('click')
-    this.shadow.querySelector('#next').removeEventListener('click')
-    this.shadow.querySelector('#previous').removeEventListener('click')
-    this.shadow.querySelector('#close').removeEventListener('click')
+    this.shadow.removeEventListener('click', this.close)
+    this.shadow.querySelector('#next').removeEventListener('click', this.navigationControls)
+    this.shadow.querySelector('#previous').removeEventListener('click', this.navigationControls)
+    this.shadow.querySelector('#close').removeEventListener('click', this.navigationControls)
   }
 
   navigationControls = (event) => {

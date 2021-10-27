@@ -28,7 +28,10 @@ export class MediaCard extends Component {
       this.dispatchEvent(new CustomEvent('update-total-like'))
     }))
 
-    this.shadow.querySelector('.card-header').addEventListener('click', () => this.dispatchEvent(new CustomEvent('on-click-media', {})))
+    this.shadow.querySelector('.card-header').addEventListener('click', () => {
+      console.log('click')
+      this.dispatchEvent(new CustomEvent('on-click-media', {}))
+    })
   }
 
   mediaViewer (name) {

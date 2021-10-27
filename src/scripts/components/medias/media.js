@@ -31,18 +31,13 @@ export class Media extends Component {
     this.render()
   }
 
-  setEvents () {
+  setListener () {
     this.mediaCard = this.shadow.querySelectorAll('media-card')
     this.mediaCard.forEach(elm => elm.addEventListener('on-click-media', this.handleClick))
     this.mediaCard.forEach(elm => elm.addEventListener('update-total-like', this.updateTotalLike))
 
-    this.tagFilter = this.shadow.querySelector('filter-component  ')
+    this.tagFilter = this.shadow.querySelector('filter-component')
     this.tagFilter.addEventListener('selected-tag', ({ detail }) => this.updateFilterValue(detail.tag))
-  }
-
-  removeEvents () {
-    this.mediaCard.removeEventListener('click')
-    this.tagFilter.removeEventListener('selected-tag', this.updateFilterValue)
   }
 
   async updateFilterValue (tag) {
@@ -54,6 +49,7 @@ export class Media extends Component {
     this.tag_selected = tag
     //@TODO: not good solution but work for moment
     this.shadow.querySelector('.cards').innerHTML = await this.updateCardList(tag)
+    this.setListener()
   }
 
   async updateCardList (filter = '') {

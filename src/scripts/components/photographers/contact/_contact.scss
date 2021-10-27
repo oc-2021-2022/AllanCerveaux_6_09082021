@@ -3,16 +3,14 @@
 @import '../../../../sass/components/button';
 
 .contact {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+  width: 100%;
+  height: 100%;
   background-color: $secondary-color;
+  @include screen('tablet') {
+    width: 70%;
+    height: 70%;
+    border-radius: ms(-3);
+  }
   @include screen('desktop') {
     top: 5%;
     left: 30%;
@@ -32,6 +30,7 @@
     width: 90%;
     justify-content: space-between;
     margin: ms(0) 0;
+    padding: 0 ms(1);
     h2,
     p {
       font-size: ms(2);
