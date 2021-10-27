@@ -12,6 +12,13 @@ export class Photographers extends Component {
     this.filter_service = new FilterService()
   }
 
+  setListener () {
+    const cards = this.shadow.querySelectorAll('photographer-card')
+    cards.forEach(element => {
+      element.addEventListener('selected-tag', (event) => this.dispatchEvent(new CustomEvent('selected-tag', { detail: event.detail })))
+    })
+  }
+
   async updateCardList (filter = null) {
     const filteredPhotographers = await this.filter_service.sortByTagsName(JSON.parse(this.photographers), filter)
     return await filteredPhotographers.map(photographer => /* html */`<photographer-card photographer='${JSON.stringify(photographer)}'></photographer-card>`).join(' ')
@@ -19,10 +26,6 @@ export class Photographers extends Component {
 
   async render () {
     this.shadow.innerHTML = /* html */`${await this.updateCardList(this.filter)}`
-    const cards = this.shadow.querySelectorAll('photographer-card')
-    cards.forEach(element => {
-      element.addEventListener('selected-tag', (event) => this.dispatchEvent(new CustomEvent('selected-tag', { detail: event.detail })))
-    })
   }
 }
 

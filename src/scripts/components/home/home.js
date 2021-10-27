@@ -2,7 +2,6 @@ import stylesheet from 'bundle-text:./_home.scss'
 import logo from 'url:../../../resources/images/logo.svg'
 import { Component } from '../../lib/Component'
 import { PhotographerService } from '../photographers'
-import '../TextComponent'
 export class HomeComponent extends Component {
   styles = stylesheet
   constructor () {
@@ -25,7 +24,7 @@ export class HomeComponent extends Component {
     this.shadow.querySelector('photographer-component').addEventListener('selected-tag', ({ detail }) => this.updateFilterValue(detail.tag))
   }
 
-  updateFilterValue(tag) {
+  updateFilterValue (tag) {
     const photographers = this.shadow.querySelector('photographer-component')
     if (photographers.getAttribute('filter') === tag) this.shadow.querySelector('photographer-component').removeAttribute('filter')
     else this.shadow.querySelector('photographer-component').setAttribute('filter', tag)
