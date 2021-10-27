@@ -1,29 +1,11 @@
-import stylesheet from 'bundle-text:./_tag_filter.scss'
+import stylesheet from 'bundle-text:./_filter_component.scss'
 import { Component } from '../../../lib/Component'
 import '../select-tag/select-tag'
 class FilterComponent extends Component {
   styles = stylesheet
+
   static get observedAttributes () {
     return ['type', 'filter_data']
-  }
-
-  generatedFilterList () {
-    if (this.filter_data) {
-      return JSON.parse(this.filter_data).map(tag => this.type === 'tag'
-        ? /* html */`<a class="tag tag-button" href="" aria-label='${tag}' data-tag="${tag}">#${tag}</a>`
-        : /* html */`<li class="tag tag-option" data-tag="${tag}">${tag}</li>`)
-        .join(' ')
-    }
-  }
-
-  template () {
-    if (this.type === 'select') {
-      return /* html */`
-        <select-tag options='${this.generatedFilterList()}'></select-tag>
-      `
-    } else if (this.type === 'tag') {
-      return this.generatedFilterList()
-    }
   }
 
   setEvents () {
@@ -45,6 +27,16 @@ class FilterComponent extends Component {
     }
     const tag = event.target.getAttribute('data-tag') ?? event.detail.getAttribute('data-tag')
     this.dispatchEvent(new CustomEvent('selected-tag', { bubbles: true, detail: { tag } }))
+  }
+
+  template () {
+    if (this.type === 'select') {
+      return /* html */`
+        <select-tag options='${this.filter_data}'></select-tag>
+      `
+    } else if (this.type === 'tag') {
+      return JSON.parse(this.filter_data).map(tag => /* html */`<a class="tag tag-button" href="" aria-label='${tag}' data-tag="${tag}">#${tag}</a>`).join(' ')
+    }
   }
 
   render () {
