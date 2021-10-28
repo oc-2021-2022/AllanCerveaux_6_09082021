@@ -1,2 +1,5 @@
 @import '../../sass/helpers/index';
 @import '../../sass/base/index';
+main :focus {
+  outline: nones;
+}

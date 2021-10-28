@@ -41,8 +41,8 @@ export class PhotographerProfile extends Component {
   async render () {
     this.photographer = await this.photographer_service.getById(this.id)
     this.shadow.innerHTML = /* html */`
-      <nav aria-label="Photographer Category" tabindex="1">
-        <a href="/" role="link" tabindex="2"> 
+      <nav>
+        <a href="/"> 
           <img src="${logo}" alt="Fisheye Home page"/>
         </a>
       </nav>

@@ -1,30 +1,14 @@
-import styles from 'bundle-text:./_app.scss'
+import stylesheet from 'bundle-text:./_app.scss'
+import { Component } from '../lib/Component'
 import '../lib/router/RouterView'
-export class App extends HTMLElement {
-  constructor () {
-    super()
-    this.image_path = './static/images'
-  }
-
-  connectedCallback () {
-    this.shadow = this.attachShadow({ mode: 'closed' })
-    this.render()
-  }
-
-  setStyle () {
-    const style = document.createElement('style')
-    style.type = 'text/css'
-    style.appendChild(document.createTextNode(styles))
-    this.shadow.prepend(style)
-  }
-
+export class App extends Component {
+  styles = stylesheet
   render () {
     this.shadow.innerHTML = /* html */`
-      <main>
+      <main role="main" tabindex="0" aria-label="Contenue principal" >
         <router-view></router-view>
       </main>
     `
-    this.setStyle()
   }
 }
 

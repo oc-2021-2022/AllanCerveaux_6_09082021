@@ -29,7 +29,6 @@ export class MediaCard extends Component {
     }))
 
     this.shadow.querySelector('.card-header').addEventListener('click', () => {
-      console.log('click')
       this.dispatchEvent(new CustomEvent('on-click-media', {}))
     })
   }

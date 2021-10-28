@@ -35,7 +35,7 @@ class FilterComponent extends Component {
         <select-tag options='${this.filter_data}'></select-tag>
       `
     } else if (this.type === 'tag') {
-      return JSON.parse(this.filter_data).map(tag => /* html */`<a class="tag tag-button" href="" aria-label='${tag}' data-tag="${tag}">#${tag}</a>`).join(' ')
+      return JSON.parse(this.filter_data).map(tag => /* html */`<a class="tag tag-button" href="" data-tag="${tag}">#${tag}</a>`).join(' ')
     }
   }
 
