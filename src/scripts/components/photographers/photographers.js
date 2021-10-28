@@ -1,47 +1,31 @@
-import styles from 'bundle-text:./_photographer.scss'
+import stylesheet from 'bundle-text:./_photographer.scss'
+import { Component } from '../../lib/Component'
 import { FilterService } from '../filters'
-export class Photographers extends HTMLElement {
+export class Photographers extends Component {
+  styles = stylesheet
   static get observedAttributes () {
     return ['photographers', 'filter']
   }
 
-  constructor (data) {
+  constructor () {
     super()
     this.filter_service = new FilterService()
   }
 
-  async attributeChangedCallback (attrName, oldValue, newValue) {
-    if (oldValue !== newValue) {
-      this[attrName] = newValue
-      await this.updateCardList(this.filter)
-    }
-  }
-
-  async connectedCallback () {
-    this.shadow = this.attachShadow({ mode: 'closed' })
-    await this.updateCardList()
-    this.render()
-  }
-
-  setStyle () {
-    const style = document.createElement('style')
-    style.type = 'text/css'
-    style.appendChild(document.createTextNode(styles))
-    this.shadow.prepend(style)
+  setListener () {
+    const cards = this.shadow.querySelectorAll('photographer-card')
+    cards.forEach(element => {
+      element.addEventListener('selected-tag', (event) => this.dispatchEvent(new CustomEvent('selected-tag', { detail: event.detail })))
+    })
   }
 
   async updateCardList (filter = null) {
     const filteredPhotographers = await this.filter_service.sortByTagsName(JSON.parse(this.photographers), filter)
-    this.cardList = ``
-    filteredPhotographers.forEach(photographer => {
-      this.cardList += /* html */`<photographer-card photographer='${JSON.stringify(photographer)}'></photographer-card>`
-    })
-    this.render()
+    return await filteredPhotographers.map(photographer => /* html */`<photographer-card photographer='${JSON.stringify(photographer)}'></photographer-card>`).join(' ')
   }
 
-  render () {
-    this.shadow.innerHTML = /* html */`${this.cardList}`
-    this.setStyle()
+  async render () {
+    this.shadow.innerHTML = /* html */`${await this.updateCardList(this.filter)}`
   }
 }
 

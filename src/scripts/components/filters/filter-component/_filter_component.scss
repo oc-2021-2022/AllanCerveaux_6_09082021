@@ -1,0 +1,10 @@
+@import '../../../../sass/components/tag';
+
+.tag-button {
+  @extend %tag;
+  font-family: $text-font-stack;
+}
+
+.active {
+  @extend %active;
+}

@@ -86,7 +86,7 @@ nav {
       width: ms(6);
     }
   }
-  tag-filter {
+  filter-component {
     display: flex;
     flex-wrap: wrap;
   }
@@ -114,4 +114,18 @@ nav {
       grid-area: contact;
     }
   }
+}
+
+contact-component {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(#fafafa, 0.9);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }

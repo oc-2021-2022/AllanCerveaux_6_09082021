@@ -1,0 +1,22 @@
+@import '../../../../sass/helpers/index';
+@import '../../../../sass/base/index';
+
+img,
+video {
+  border-radius: ms(-4);
+  object-fit: cover;
+  width: 18em;
+  height: 15em;
+  @include screen('tablet') {
+    width: ms(9);
+    height: ms(9);
+  }
+  @include screen('desktop') {
+    width: ms(10);
+    height: ms(9);
+  }
+  @include screen('hrq') {
+    width: ms(11);
+    height: ms(10);
+  }
+}

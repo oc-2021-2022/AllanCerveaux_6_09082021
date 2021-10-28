@@ -1,9 +1,11 @@
-import styles from 'bundle-text:./_media-card.scss'
+import stylesheet from 'bundle-text:./_media-card.scss'
 import * as images from 'url:../../../../resources/images/**/*'
+import { Component } from '../../../lib/Component'
 import { PhotographerService } from '../../photographers'
-
-export class MediaCard extends HTMLElement {
-  static get observedAttributes () {
+import '../media-like/media-like'
+export class MediaCard extends Component {
+  styles = stylesheet
+  static get observedAttribute () {
     return ['media']
   }
 
@@ -12,42 +14,34 @@ export class MediaCard extends HTMLElement {
     this.photographer_service = new PhotographerService()
   }
 
-  async connectedCallback () {
-    this.shadow = this.attachShadow({ mode: 'closed' })
+  async data () {
     this.media = JSON.parse(this.getAttribute('media'))
     this.photographer = await this.photographer_service.getById(this.media.photographerId)
-    this.render()
   }
 
-  setElementEvent () {
-    const likes = this.shadow.querySelectorAll('.like')
-    likes.forEach(like => like.addEventListener('click', this.addLike))
-  }
+  setEvents () {
+    const likes = this.shadow.querySelectorAll('media-like')
+    likes.forEach(like => like.addEventListener('on-like', ({ target, detail }) => {
+      const likes = parseInt(target.getAttribute('likes'))
+      target.setAttribute('liked', detail)
+      target.setAttribute('likes', likes + 1)
+      this.dispatchEvent(new CustomEvent('update-total-like'))
+    }))
 
-  setStyle () {
-    const style = document.createElement('style')
-    style.type = 'text/css'
-    style.appendChild(document.createTextNode(styles))
-    this.shadow.prepend(style)
+    this.shadow.querySelector('.card-header').addEventListener('click', () => {
+      this.dispatchEvent(new CustomEvent('on-click-media', {}))
+    })
   }
 
   mediaViewer (name) {
     const photographerMedia = images[this.photographer.name.split(' ').shift()][name]
     if (photographerMedia.includes('.mp4')) {
       return /* html */`
-        <video src="${photographerMedia}" width="250">
+        <video src="${photographerMedia}">
         </video>
       `
     }
-    return /* html */`<img src="${photographerMedia}" alt="" width="250"/>`
-  }
-
-  addLike = () => {
-    if (!this.media.liked) {
-      this.media.likes += 1
-    }
-    this.media.liked = true
-    this.render()
+    return /* html */`<img src="${photographerMedia}" alt=""/>`
   }
 
   render () {
@@ -58,12 +52,10 @@ export class MediaCard extends HTMLElement {
         </div>
         <div class="card-content">
           <h3 class="title">${this.media.title}</h3>
-          <div class="like">${this.media.likes} <i class="fas fa-heart"></i></div>
+          <media-like likes="${this.media.likes}"></media-like>
         </div>
       </article>
     `
-    this.setElementEvent()
-    this.setStyle()
   }
 }
 

@@ -25,10 +25,12 @@
 }
 
 %card-image {
+  width: ms(6);
+  height: ms(6);
   object-fit: cover;
   @include screen('desktop') {
-    width: ms(7);
-    height: ms(7);
+    width: ms(6);
+    height: ms(6);
   }
   @include screen('hrq') {
     width: ms(8);
