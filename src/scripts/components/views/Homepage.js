@@ -11,6 +11,8 @@ export class Homepage extends Component {
   generatePhotographerCard = async (photographer) => {
     const card = await new PhotographerCard(photographer).render()
     this.container.append(card)
+    this.addEventTag()
+    this.onClickLink()
   }
 
   toggleCardList (tag, selectedTag) {
@@ -27,6 +29,23 @@ export class Homepage extends Component {
         tag.addClass('active')
         card.show()
       }
+    })
+  }
+
+  addEventTag () {
+    let selectedTag = ''
+    this.$('.tag').on('click', ({ target }) => {
+      this.resetTagStyle()
+      this.toggleCardList(this.$(target), selectedTag)
+      selectedTag = this.$(target).getAttribute('data-tag') === selectedTag ? '' : this.$(target).getAttribute('data-tag')
+    })
+  }
+
+  resetTagStyle = () => this.$('.tag').each(tag => this.$(tag).hasClass('active') ? this.$(tag).removeClass('active') : null)
+
+  onClickLink () {
+    this.$('.card-header>a').on('click', ({ target }) => {
+      document.dispatchEvent(new CustomEvent('go-to-profile', { detail: this.$(target.parentNode).getAttribute('data-id') }))
     })
   }
 }

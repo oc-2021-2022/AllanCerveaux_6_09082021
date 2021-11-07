@@ -17,22 +17,24 @@ export class App extends Component {
     const tagList = this.$('.tag-list')
     const filter = new Filter('tag', await this.tags)
     tagList.html(await filter.render())
+    this.addEventTag()
 
     this.homepage = new Homepage(this.photographers)
-
-    this.addEventTag()
+    document.addEventListener('go-to-profile', ({detail}) => console.log(detail))
   }
 
   addEventTag () {
     let selectedTag = ''
-    this.$('.tag').each(tag => {
-      this.$(tag).click(() => {
-        this.resetTagStyle()
-        this.homepage.toggleCardList(this.$(tag), selectedTag)
-        selectedTag = this.$(tag).getAttribute('data-tag') === selectedTag ? '' : this.$(tag).getAttribute('data-tag')
-      })
+    this.$('.tag').on('click', ({ target }) => {
+      this.resetTagStyle()
+      this.homepage.toggleCardList(this.$(target), selectedTag)
+      selectedTag = this.$(target).getAttribute('data-tag') === selectedTag ? '' : this.$(target).getAttribute('data-tag')
     })
   }
 
   resetTagStyle = () => this.$('.tag').each(tag => this.$(tag).hasClass('active') ? this.$(tag).removeClass('active') : null)
+
+  goToPhotographerProfile (arg) {
+    console.log('click', arg)
+  }
 }

@@ -127,7 +127,11 @@ export class Manipulator {
   }
 
   on (eventName, handler) {
-    this.element.addEventListener(eventName, (event) => handler(event))
+    if (this.element.length) {
+      this.element.forEach(elm => elm.addEventListener(eventName, (event) => handler(event)))
+    } else {
+      this.element.addEventListener(eventName, (event) => handler(event))
+    }
     return this
   }
 
