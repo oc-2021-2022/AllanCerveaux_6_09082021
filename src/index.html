@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FishEYE</title>
+    <link rel="stylesheet" href="./sass/main.scss" />
   </head>
   <body>
-    <nav>
-      <a href="/">
+    <nav aria-label="Main navigation" role="navigation" class="navbar">
+      <a href="/" class="navbar-brand">
         <img src="./resources/images/logo.svg" alt="Logo Fisheye - Home page" />
       </a>
-
-      <h1>Nos Photographes</h1>
+      <h1 aria-label="title" class="navbar-title">Nos Photographes</h1>
+      <div class="tag-list"></div>
     </nav>
     <main>
-      <section class="photographers"></section>
+      <section id="photographers" class="cards"></section>
+      <section id="profile-container" class="profile"></section>
     </main>
     <script type="module" src="./scripts/main.js"></script>
   </body>

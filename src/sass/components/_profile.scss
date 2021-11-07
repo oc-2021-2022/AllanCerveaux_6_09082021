@@ -1,0 +1,109 @@
+@import './button';
+
+.profile {
+  display: grid;
+  grid-template-columns: 1fr 0.5fr;
+  grid-template-areas: 'info picture';
+  background-color: $light-grey;
+  margin: ms(0) ms(1);
+  @include screen('tablet') {
+    justify-items: center;
+    margin: ms(0) ms(3);
+  }
+  @include screen('desktop') {
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: 0.5fr 0.1fr 0.8fr;
+    grid-template-areas: 'info contact picture';
+    margin: ms(0) ms(5);
+  }
+  @include screen('hrq') {
+    grid-template-columns: 0.2fr 0.1fr 0.8fr;
+  }
+}
+.profile-info {
+  grid-area: info;
+  .name,
+  .city,
+  .tagline {
+    margin: 0;
+  }
+  .name {
+    color: $text-primary;
+    font-size: ms(2);
+    font-weight: 500;
+    @include screen('desktop') {
+      margin-top: 0;
+      font-size: ms(3);
+    }
+  }
+  .city {
+    color: $primary-color;
+    font-weight: 400;
+    @include screen('desktop') {
+      font-size: ms(1);
+      margin-bottom: ms(0);
+    }
+  }
+  .tagline {
+    color: $dark-grey;
+    @include screen('desktop') {
+      margin-bottom: ms(0);
+    }
+  }
+  @include screen('tablet') {
+    justify-self: start;
+  }
+  @include screen('desktop') {
+    justify-self: start;
+    align-self: start;
+  }
+
+  & > .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    font-size: 0.8em;
+    @include screen('desktop') {
+      font-size: ms(0);
+    }
+  }
+}
+
+.profile-avatar {
+  object-fit: cover;
+  height: ms(5);
+  width: ms(5);
+  border-radius: 100%;
+  grid-area: picture;
+  @include screen('tablet') {
+    justify-self: end;
+  }
+  @include screen('desktop') {
+    justify-self: end;
+    height: ms(6);
+    width: ms(6);
+  }
+}
+
+.button {
+  @extend .button;
+  padding-top: ms(-2);
+  padding-bottom: ms(-2);
+  font-size: ms(1);
+  font-weight: 600;
+  height: max-content;
+  width: max-content;
+  position: fixed;
+  z-index: 0;
+  bottom: ms(2);
+  justify-self: center;
+  @include screen('desktop') {
+    padding: ms(0);
+    font-size: ms(0);
+    position: unset;
+    bottom: unset;
+    align-self: baseline;
+    grid-area: contact;
+  }
+}

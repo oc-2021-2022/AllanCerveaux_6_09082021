@@ -1,7 +1,18 @@
-@import '../helpers/index';
-@import '../base/index';
+.cards {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  width: 100%;
+  @include screen('tablet') {
+    grid-template-columns: repeat(2, 1fr);
+    gap: ms(4) ms(4);
+  }
+  @include screen('desktop') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 
-%card {
+.card {
+  justify-self: center;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -9,22 +20,22 @@
   text-align: center;
 }
 
-%card-header {
+.card-header {
+  a {
+    color: inherit;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
   .title {
     color: $text-primary;
     font-weight: 500;
     margin: ms(-2) 0;
-    a {
-      color: inherit;
-      text-decoration: none;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
   }
 }
 
-%card-image {
+.card-image {
   width: ms(6);
   height: ms(6);
   object-fit: cover;
@@ -38,16 +49,27 @@
   }
 }
 
-%rounded {
+.rounded {
   border-radius: 100%;
 }
 
-%card-content {
+.card-content {
   & p {
     margin: ms(-2) 0;
   }
+  .city {
+    font-size: ms(1);
+    color: $primary-color;
+  }
+  .tagline,
+  .price {
+    font-size: ms(0);
+  }
+  .price {
+    color: $dark-grey;
+  }
 }
 
-%card-footer {
+.card-footer {
   padding: ms(0) 0;
 }

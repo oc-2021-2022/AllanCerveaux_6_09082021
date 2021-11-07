@@ -1,0 +1,42 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: ms(0) ms(1);
+  @include screen('desktop') {
+    margin: ms(0) ms(4) ms(4) ms(4);
+  }
+  .navbar-brand {
+    img {
+      align-self: center;
+      width: ms(6);
+      @include screen('desktop') {
+        width: ms(6);
+      }
+      @include screen('hrq') {
+        width: ms(7);
+      }
+    }
+  }
+  .navbar-title {
+    font-weight: 500;
+    font-size: ms(1);
+    color: $primary-color;
+    @include screen('desktop') {
+      order: 1;
+      font-size: ms(2);
+    }
+  }
+}
+
+.navbar.hide-items {
+  justify-content: start;
+  .tag-list,
+  .navbar-title {
+    display: none;
+    @include screen('desktop') {
+      visibility: hidden;
+    }
+  }
+}

@@ -1,7 +1,4 @@
-@import '../helpers/index';
-@import '../base/index';
-
-%button {
+.button {
   background-color: $primary-color;
   color: $white;
   padding: ms(0);

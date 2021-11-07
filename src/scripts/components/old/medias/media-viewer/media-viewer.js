@@ -1,6 +1,6 @@
 import stylesheet from 'bundle-text:./_media_viewer.scss'
 import * as images from 'url:../../../../resources/images/**/*'
-import { Component } from '../../../lib/Component'
+import { Component } from '../../../../lib/Component'
 
 export class MediaViewer extends Component {
   styles = stylesheet

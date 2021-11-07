@@ -1,4 +1,4 @@
-import { Network, Query } from '../../../lib'
+import { Network, Query } from '../../lib'
 
 export class PhotographerService {
   constructor () {
