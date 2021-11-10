@@ -5,6 +5,7 @@
   grid-template-columns: 1fr 0.5fr;
   grid-template-areas: 'info picture';
   background-color: $light-grey;
+  padding: ms(0);
   margin: ms(0) ms(1);
   @include screen('tablet') {
     justify-items: center;

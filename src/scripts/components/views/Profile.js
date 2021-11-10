@@ -1,5 +1,6 @@
 import { Component } from '../../lib'
 import { MediaCard, MediaService } from '../medias'
+import { Modal } from '../modal/modal'
 import { PhotographerProfile } from '../photographer'
 import { Filter } from '../shared/filter'
 
@@ -16,7 +17,12 @@ export class Profile extends Component {
   }
 
   async generateProfile () {
-    this.profile = await new PhotographerProfile(this.photographer).render()
+    this.profile = new PhotographerProfile(this.photographer)
+    this.profile.render().then((template) => {
+      this.container.html(template)
+      this.profile.onClick()
+    })
+
     this.generateMediaList(this.media)
 
     const filter = new Filter('select', ['popularity', 'date', 'title'], false)
@@ -36,7 +42,6 @@ export class Profile extends Component {
     })
 
     this.container
-      .html(this.profile)
       .after(this.mediaList.element)
       .after(filterContainer.element)
 
@@ -53,6 +58,8 @@ export class Profile extends Component {
         </span>
       `)
     this.container.after(totalLikeContainer.element)
+
+    document.addEventListener('open-modal', this.openModal)
   }
 
   generateMediaList (media) {
@@ -64,6 +71,7 @@ export class Profile extends Component {
       mediaCard.render().then((template) => {
         this.mediaList.append(template)
         mediaCard.onLiked()
+        mediaCard.openModal()
       })
     })
   }
@@ -73,5 +81,10 @@ export class Profile extends Component {
     const sortedMedia = this.media_service.filterOption(this.$(target).getAttribute('data-tag'), this.media)
     this.generateMediaList(sortedMedia)
     this.$('.filter').after(this.mediaList.element)
+  }
+
+  openModal = ({ detail }) => {
+    const lightbox = new Modal(detail.type, { ...detail.data, media: this.media })
+    lightbox.generateModal()
   }
 }

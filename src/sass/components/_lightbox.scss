@@ -1,0 +1,90 @@
+.lightbox {
+  a,
+  .title {
+    color: $primary-color;
+  }
+  .title {
+    order: 1;
+    width: 18em;
+    font-weight: 500;
+    margin-top: ms(-3);
+    @include screen('tablet') {
+      width: ms(7);
+      font-size: ms(2);
+    }
+    @include screen('desktop') {
+      width: ms(8);
+      font-size: ms(2);
+    }
+    @include screen('hrq') {
+      width: ms(8);
+      font-size: ms(3);
+    }
+  }
+  .lightbox-media {
+    display: grid;
+    grid-template-areas:
+      '. picture close'
+      'left-arrow picture right-arrow'
+      '. picture .';
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 0.2fr 1fr 0.2fr;
+    justify-content: center;
+    .media-viewer {
+      grid-area: picture;
+      margin: 0 ms(-2);
+      display: flex;
+      flex-direction: column;
+    }
+    .media-viewer > img,
+    div.plyr__video-wrapper > .lightbox-player {
+      order: 0;
+      border-radius: ms(-4);
+      object-fit: cover;
+      width: 18em;
+      height: 15em;
+      @include screen('tablet') {
+        width: ms(9);
+        height: ms(9);
+      }
+      @include screen('desktop') {
+        width: ms(10);
+        height: ms(9);
+      }
+      @include screen('hrq') {
+        width: ms(11);
+        height: ms(10);
+      }
+    }
+
+    a {
+      text-decoration: none;
+      font-weight: 600;
+      font-size: ms(2);
+      @include screen('tablet') {
+        font-size: ms(3);
+      }
+      @include screen('desktop') {
+        font-size: ms(4);
+      }
+    }
+    #close {
+      grid-area: close;
+      justify-self: end;
+    }
+    #next {
+      grid-area: right-arrow;
+      align-self: center;
+      justify-self: end;
+    }
+    #previous {
+      grid-area: left-arrow;
+      align-self: center;
+      justify-self: start;
+    }
+  }
+}
+
+div.plyr__video-wrapper > .lightbox-player {
+  width: unset;
+}

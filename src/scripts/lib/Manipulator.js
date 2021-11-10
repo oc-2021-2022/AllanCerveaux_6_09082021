@@ -36,7 +36,7 @@ export class Manipulator {
     return this
   }
 
-  parent = () => this.element.parentElement
+  parent = () => this.setElement(this.element.parentElement)
 
   children = () => this.element.children
 
@@ -60,7 +60,11 @@ export class Manipulator {
   }
 
   prepend (element) {
-    this.element.prepend(element)
+    if (typeof element === 'string') {
+      this.element.innerHTML += element
+    } else {
+      this.element.prepend(element)
+    }
     return this
   }
 
@@ -162,8 +166,8 @@ export class Manipulator {
     return this
   }
 
-  keypress (handler) {
-    this.element.addEventListener('keypress', (event) => handler(event))
+  keydown (handler) {
+    this.element.addEventListener('keydown', (event) => handler(event))
     return this
   }
 

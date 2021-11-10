@@ -23,9 +23,13 @@ export class MediaCard extends Component {
     })
   }
 
+  openModal () {
+    this.$('.media').on('click', ({ target }) => document.dispatchEvent(new CustomEvent('open-modal', { detail: { data: { id: this.$(target).parent().getAttribute('data-id'), name: this.name }, type: 'lightbox' } })))
+  }
+
   template = async () => /* html */`
   <article class="media" tabindex="0">
-    <div class="media-header">
+    <div class="media-header" data-id="${this.media.id}">
       ${await new MediaViewer(this.name, this.media.image ?? this.media.video).render()}
     </div>
     <div class="media-content">

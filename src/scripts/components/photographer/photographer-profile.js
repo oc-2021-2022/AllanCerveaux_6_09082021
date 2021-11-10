@@ -12,6 +12,10 @@ export class PhotographerProfile extends Component {
     this.filter = await new Filter('tag', this.photographer.tags).render()
   }
 
+  onClick () {
+    this.$('#contact').click(() => document.dispatchEvent(new CustomEvent('open-modal', { detail: { type: 'contact', data: { name: this.photographer.name } } })))
+  }
+
   template = () => /* html */`
     <div class="profile-info">
       <h1 class="name">${this.photographer.name}</h1>
