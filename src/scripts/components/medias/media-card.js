@@ -24,7 +24,18 @@ export class MediaCard extends Component {
   }
 
   openModal () {
-    this.$('.media').on('click', ({ target }) => document.dispatchEvent(new CustomEvent('open-modal', { detail: { data: { id: this.$(target).parent().getAttribute('data-id'), name: this.name }, type: 'lightbox' } })))
+    this.$('.media-header').on('click', ({ target }) => {
+      console.log('click')
+      document.dispatchEvent(new CustomEvent('open-modal', {
+        detail: {
+          data: {
+            id: this.$(target).parent().getAttribute('data-id'),
+            name: this.name
+          },
+          type: 'lightbox'
+        }
+      }))
+    })
   }
 
   template = async () => /* html */`

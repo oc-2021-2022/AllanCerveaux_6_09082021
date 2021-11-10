@@ -1,6 +1,6 @@
 import { Component } from '../lib/Component'
 import { MediaService } from './medias'
-import { PhotographerService } from './old/photographers'
+import { PhotographerService } from './photographer'
 import { Filter } from './shared/filter/filter-component'
 import { Homepage } from './views/Homepage'
 import { Profile } from './views/Profile'

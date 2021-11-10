@@ -84,7 +84,7 @@ export class Profile extends Component {
   }
 
   openModal = ({ detail }) => {
-    const lightbox = new Modal(detail.type, { ...detail.data, media: this.media })
-    lightbox.generateModal()
+    const modal = new Modal(detail.type, { ...detail.data, media: this.media })
+    modal.generateModal()
   }
 }
