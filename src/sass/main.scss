@@ -5,7 +5,10 @@
 @import './base/index';
 
 // Import Component
-@import './components/tag', './components/card', './components/profile', './components/media';
+@import './components/tag', './components/card', './components/profile', './components/media', './components/filter',
+  './components/custom-select', './components/information';
 
 // Import Layout
 @import './layouts/navbar';
+
+@import '../../node_modules/plyr/src/sass/plyr.scss';

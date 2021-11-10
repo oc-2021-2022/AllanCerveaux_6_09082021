@@ -44,8 +44,10 @@ export class Homepage extends Component {
   resetTagStyle = () => this.$('.tag').each(tag => this.$(tag).hasClass('active') ? this.$(tag).removeClass('active') : null)
 
   onClickLink () {
-    this.$('.card-header>a').on('click', ({ target }) => {
-      document.dispatchEvent(new CustomEvent('go-to-profile', { detail: this.$(target.parentNode).getAttribute('data-id') }))
-    })
+    this.$('.card-header>a').on('click', ({ target }) => document.dispatchEvent(new CustomEvent('go-to-profile', { detail: this.$(target.parentNode).getAttribute('data-id') })))
+  }
+
+  destroy () {
+    this.container.remove()
   }
 }

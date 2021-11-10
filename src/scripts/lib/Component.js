@@ -4,7 +4,7 @@ export class Component {
   constructor () {
     this.template = ''
   }
-
+  
   $ = (selector) => {
     this.manipulator = new Manipulator()
     if (typeof selector === 'string') return this.manipulator.selector(selector)

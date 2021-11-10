@@ -22,17 +22,17 @@ export class MediaService {
     })
   }
 
-  async filterOption (option, arr, reversed) {
+  filterOption (option, arr, reversed) {
     let data = null
     switch (option) {
       case 'title':
-        data = await this.filter_service.sortByName(arr, reversed ? 'DESC' : 'ASC')
+        data = this.filter_service.sortByName(arr, reversed ? 'DESC' : 'ASC')
         break
       case 'popularity':
-        data = reversed ? await this.filter_service.lowerThan(arr) : await this.filter_service.greaterThan(arr)
+        data = reversed ? this.filter_service.lowerThan(arr) : this.filter_service.greaterThan(arr)
         break
       case 'date':
-        data = await this.filter_service.sortByDate(arr, reversed ? 'ASC' : 'DESC')
+        data = this.filter_service.sortByDate(arr, reversed ? 'ASC' : 'DESC')
         break
       default:
         data = arr

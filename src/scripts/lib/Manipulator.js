@@ -126,6 +126,15 @@ export class Manipulator {
     return this
   }
 
+  removeAttribute (key) {
+    this.element.removeAttribute(key)
+    return this
+  }
+
+  hasAttribute (key) {
+    return this.element.hasAttribute(key)
+  }
+
   on (eventName, handler) {
     if (this.element.length) {
       this.element.forEach(elm => elm.addEventListener(eventName, (event) => handler(event)))

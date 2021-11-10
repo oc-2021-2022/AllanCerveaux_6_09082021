@@ -9,7 +9,7 @@ export class MediaCard extends Component {
   }
 
   template = async () => /* html */`
-  <article class="media">
+  <article class="media" tabindex="0">
     <div class="media-header">
       ${await new MediaViewer(this.name, this.media.image ?? this.media.video).render()}
     </div>

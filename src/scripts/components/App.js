@@ -3,38 +3,43 @@ import { MediaService } from './medias'
 import { PhotographerService } from './old/photographers'
 import { Filter } from './shared/filter/filter-component'
 import { Homepage } from './views/Homepage'
+import { Profile } from './views/Profile'
+
 export class App extends Component {
   async onCreate () {
     this.photographer_service = new PhotographerService()
     this.media_service = new MediaService()
     this.photographers = await this.photographer_service.getAll()
     this.tags = await this.photographer_service.getTagList()
+    this.selectedTag = ''
   }
 
   async render () {
     await this.onCreate()
 
     const tagList = this.$('.tag-list')
-    const filter = new Filter('tag', await this.tags)
-    tagList.html(await filter.render())
-    this.addEventTag()
+    this.filter = new Filter('tag', await this.tags)
+    tagList.html(await this.filter.render())
+    this.filter.onClick()
 
     this.homepage = new Homepage(this.photographers)
-    document.addEventListener('go-to-profile', ({detail}) => console.log(detail))
+    document.addEventListener('go-to-profile', this.goToPhotographerProfile)
+    document.addEventListener('selected-tag', this.addEventTag)
   }
 
-  addEventTag () {
-    let selectedTag = ''
-    this.$('.tag').on('click', ({ target }) => {
-      this.resetTagStyle()
-      this.homepage.toggleCardList(this.$(target), selectedTag)
-      selectedTag = this.$(target).getAttribute('data-tag') === selectedTag ? '' : this.$(target).getAttribute('data-tag')
-    })
+  addEventTag (target) {
+    this.resetTagStyle()
+    this.homepage.toggleCardList(this.$(target), this.selectedTag)
+    this.selectedTag = this.$(target).getAttribute('data-tag') === this.selectedTag ? '' : this.$(target).getAttribute('data-tag')
   }
 
-  resetTagStyle = () => this.$('.tag').each(tag => this.$(tag).hasClass('active') ? this.$(tag).removeClass('active') : null)
+  goToPhotographerProfile = async ({ detail }) => {
+    this.homepage.destroy()
+    const photographer = await this.photographer_service.getById(detail)
+    const media = await this.media_service.getPhotographerMedia(detail)
 
-  goToPhotographerProfile (arg) {
-    console.log('click', arg)
+    this.$('.navbar').addClass('hide-items')
+
+    const profile = new Profile(photographer, media)
   }
 }
