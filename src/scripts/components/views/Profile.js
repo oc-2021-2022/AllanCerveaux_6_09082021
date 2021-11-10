@@ -60,16 +60,17 @@ export class Profile extends Component {
     this.mediaList.addClass('cards')
 
     media.forEach(async m => {
-      const mediaCard = await new MediaCard(this.photographer.name, m).render()
-      this.mediaList.append(mediaCard)
+      const mediaCard = new MediaCard(this.photographer.name, m)
+      mediaCard.render().then((template) => {
+        this.mediaList.append(template)
+        mediaCard.onLiked()
+      })
     })
   }
 
   sortMedia = ({ target }) => {
-    console.log(target)
     this.$('.cards').remove()
     const sortedMedia = this.media_service.filterOption(this.$(target).getAttribute('data-tag'), this.media)
-    console.log(sortedMedia)
     this.generateMediaList(sortedMedia)
     this.$('.filter').after(this.mediaList.element)
   }
