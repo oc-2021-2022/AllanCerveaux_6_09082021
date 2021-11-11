@@ -1,5 +1,0 @@
-export { PhotographerCard } from './card/photographer-card'
-export { Contact } from './contact/contact'
-export { PhotographerService } from './photographer-service'
-export { Photographers } from './photographers'
-export { PhotographerProfile } from './profile/photographer-profile'

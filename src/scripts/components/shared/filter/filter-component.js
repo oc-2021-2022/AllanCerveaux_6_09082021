@@ -1,25 +1,41 @@
 import { Component } from '../../../lib/Component'
-import { Creator } from '../../../lib/Creator'
+import { CustomSelect } from './custom-select'
 import { FilterService } from './filter-service'
 export class Filter extends Component {
-  constructor (type, tags) {
+  constructor (type, tags, active = true) {
     super()
     this.type = type
     this.tags = tags
+    this.active = active
     this.filter_service = new FilterService()
-    this.init()
   }
-  
-  generate_filter() {
+
+  generateFilters = () => {
     if (this.type === 'tag') {
-      this.tags.forEach(tag => {
-        const span = Creator.createElement('span')
-        span.addClass('ta')
-      });
+      return this.tags.map(tag => /* html */`<span role="link" aria-label="${tag}" class="tag tag-button" data-tag="${tag}" tabindex="0" >#${tag}</span>`).join(' ')
+    } else if (this.type === 'select') {
+      this.customSelect = new CustomSelect(this.tags)
+      return this.customSelect.render()
     }
   }
-  
-  init () {
-    this.container = Creator.createElement('div')
+
+  onClick () {
+    if (this.active) this.$('.tag').on('click', ({ target }) => document.dispatchEvent(new CustomEvent('selected-tag', { detail: target })))
   }
+
+  toggleSelectList () {
+    this.$('.select').click(this.customSelect.toggleList)
+  }
+
+  selectTagOption () {
+    this.$('.tag-option').on('click', ({ target }) => {
+      this.customSelect.selectedTag(target)
+    })
+  }
+
+  template = async () => /* html */`
+    <div class="${this.type === 'tag' ? 'tag-list' : 'select'}">
+      ${await this.generateFilters()}
+    </div>
+  `
 }

@@ -10,27 +10,55 @@ export class Router {
     this.listen()
   }
 
+  /**
+   * Set routes for router
+   *
+   * @param {{path: string, component: Component, cb: Function}[]} arr
+   * @memberof Router
+   */
   add = (arr) => {
     this.routes = arr
     return this
   }
 
+  /**
+   * Remove route
+   *
+   * @param {string} path
+   * @memberof Router
+   */
   remove = path => {
     this.routes = this.routes.filter(route => route.path !== path)
     return this
   }
 
+  /**
+   * Reset all routes
+   *
+   * @memberof Router
+   */
   flush = () => {
     this.routes = []
     return this
   }
 
+  /**
+   * Remove slash at start and end of path
+   *
+   * @param {*} path
+   * @memberof Router
+   */
   clearSlashes = path =>
     path
       .toString()
       .replace(/\/$/, '')
       .replace(/^\//, '');
 
+  /**
+   * Return route fragment
+   *
+   * @memberof Router
+   */
   getFragement = () => {
     let fragment = ''
     if (this.mode === 'history') {
@@ -44,6 +72,12 @@ export class Router {
     return this.clearSlashes(fragment)
   }
 
+  /**
+   * Navigate to path
+   *
+   * @param {string} [path='']
+   * @memberof Router
+   */
   navigate = (path = '') => {
     if (this.mode === 'history') {
       window.history.pushState(null, null, this.root + this.clearSlashes(path))
@@ -53,11 +87,21 @@ export class Router {
     return this
   }
 
+  /**
+   * Listen all time if route as called
+   *
+   * @memberof Router
+   */
   listen = () => {
     clearInterval(this.listen)
     this.interval = setInterval(this.interval, 50)
   }
 
+  /**
+   * Check if route existe
+   *
+   * @memberof Router
+   */
   interval = () => {
     if (this.current === this.getFragement()) return
     this.current = this.getFragement()
@@ -73,6 +117,11 @@ export class Router {
     return false
   }
 
+  /**
+   * Get current routes
+   *
+   * @memberof Router
+   */
   getCurrentRoute () {
     // eslint-disable-next-line array-callback-return
     return this.routes.find(route => this.getFragement().match(route.path))

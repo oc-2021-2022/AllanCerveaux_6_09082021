@@ -1,0 +1,40 @@
+.select {
+  background-color: $primary-color;
+  width: max-content;
+  padding: ms(1) ms(0);
+  border-radius: ms(-4);
+  font-weight: 600;
+  color: $white;
+  text-transform: capitalize;
+  .selected-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: ms(5);
+  }
+  ul {
+    display: none;
+    margin: 0;
+  }
+  .options-list {
+    padding: 0;
+    list-style: none;
+    li {
+      text-transform: capitalize;
+      padding: ms(0) 0;
+      border: unset;
+      border-bottom: 1px solid $white;
+      color: $white;
+      border-radius: unset;
+      &:last-child {
+        padding-bottom: 0;
+        border: none;
+      }
+    }
+  }
+  .toggle-option {
+    display: block;
+    margin-top: ms(0);
+    border-top: 1px solid $grey;
+  }
+}

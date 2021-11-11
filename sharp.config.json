@@ -1,0 +1,7 @@
+{
+  "jpeg": {
+    "quality": 50,
+    "chromaSubsampling": "4:4:4",
+    "mozjpeg": true
+  }
+}
