@@ -17,8 +17,9 @@ export class Modal extends Component {
       const lightbox = new Lightbox(this.data.id, this.data.name, this.data.media)
       lightbox.render().then(template => {
         this.modalContainer.html(template)
-        lightbox.close()
         lightbox.navigationEvent()
+        lightbox.close()
+        lightbox.setPlayer()
       })
     } else {
       const contact = new Contact(this.data.name)

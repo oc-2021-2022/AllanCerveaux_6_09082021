@@ -1,8 +1,12 @@
 .filter {
   display: flex;
+  align-items: center;
   margin: ms(0) 6em;
+  span,
+  .select {
+    align-self: baseline;
+  }
   span {
-    align-self: center;
     font-weight: 600;
   }
   .select {

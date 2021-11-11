@@ -35,6 +35,7 @@ export class Lightbox extends Component {
     }
     const newMedia = this.media[selectedControlToSwitchMedia]
     this.selectedMedia = newMedia
+    this.$('.media-viewer>img, .media-viewer>.plyr').remove()
     this.setMedia()
   }
 
@@ -48,23 +49,20 @@ export class Lightbox extends Component {
   }
 
   async setMedia () {
-    this.$('.media-viewer>img, .media-viewer>.plyr').remove()
     const media = new MediaViewer(this.name, this.selectedMedia.image ?? this.selectedMedia.video)
     media.render().then(template => {
       this.$('.media-viewer').append(template)
-      if (this.$('.media-viewer>video').element) {
-        this.$('.media-viewer>video').addClass('lightbox-player')
-        const player = new Plyr('.lightbox-player', {
-          captions: {
-            language: 'auto',
-            active: true,
-            update: false
-          }
-        })
-      }
+      this.setPlayer()
     })
     this.$('h3').setAttribute('aria-label', this.selectedMedia.title)
     this.$('h3').text(this.selectedMedia.title)
+  }
+
+  setPlayer = () => {
+    if (this.$('.media-viewer>video').element) {
+      this.$('.media-viewer>video').addClass('lightbox-player')
+      const player = new Plyr('.lightbox-player')
+    }
   }
 
   template = async () => /* html */`
