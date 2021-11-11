@@ -24,7 +24,13 @@ export class Filter extends Component {
   }
 
   toggleSelectList () {
-    this.$('.select').click(this.customSelect.toggleList)
+    this.$('.select')
+      .click(this.customSelect.toggleList)
+      .keydown((event) => {
+        if (event.keyCode === 32 || event.key === 'Enter') {
+          this.customSelect.toggleList()
+        }
+      })
   }
 
   selectTagOption () {

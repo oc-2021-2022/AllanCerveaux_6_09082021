@@ -5,17 +5,25 @@ export class CustomSelect extends Component {
     super()
 
     this.options = options
-    this.openList = false
   }
 
   toggleList = () => {
     if (!this.list_open) {
-      this.$('.options-list').addClass('toggle-option')
+      this.$('.options-list')
+        .addClass('toggle-option')
+        .setAttribute('aria-hidden', 'false')
+
       this.list_open = true
+      this.$('.selected-option').setAttribute('aria-expended', this.list_open)
       this.$('.selected-option>.arrow').html('&xwedge;')
     } else {
-      this.$('.options-list').removeClass('toggle-option')
+      this.$('.options-list')
+        .removeClass('toggle-option')
+        .setAttribute('aria-hidden', 'true')
+
       this.list_open = false
+      this.$('.selected-option').setAttribute('aria-expended', this.list_open)
+
       this.$('.selected-option>.arrow').html('&bigvee;')
     }
   }
@@ -34,10 +42,10 @@ export class CustomSelect extends Component {
   }
 
   template = () => /* html */`
-  <div class="selected-option">
+  <div class="selected-option" role="listbox" tabindex="0" aria-expanded="false">
     <span class="option">${this.options[0]}</span>
     <span class="arrow">&bigvee;</span>
   </div>
-  <ul class="options-list">${this.options.map(tag => /* html */`<li class="tag-option" data-tag="${tag}">${tag}</li>`).join('')}</ul>
+  <ul class="options-list" aria-hidden="true">${this.options.map(tag => /* html */`<li class="tag-option" role="option" data-tag="${tag}" tabindex="0">${tag}</li>`).join('')}</ul>
   `
 }

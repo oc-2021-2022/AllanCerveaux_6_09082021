@@ -21,6 +21,7 @@ export class Profile extends Component {
     this.profile.render().then((template) => {
       this.container.html(template)
       this.profile.onClick()
+      
     })
 
     this.generateMediaList(this.media)
@@ -49,7 +50,7 @@ export class Profile extends Component {
     totalLikeContainer
       .addClass('information')
       .html(/*html*/`
-        <div class="likes">
+        <div class="likes" tabindex="0" aria-label="total de like ${this.totalLike}">
           <span class="like-total">${this.totalLike}</span>
           <span class="heart-icon">&#x2764;</span>
         </div>

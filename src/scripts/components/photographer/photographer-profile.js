@@ -18,12 +18,12 @@ export class PhotographerProfile extends Component {
 
   template = () => /* html */`
     <div class="profile-info">
-      <h1 class="name">${this.photographer.name}</h1>
-      <h2 class="city">${this.photographer.city}, ${this.photographer.country}</h2>
-      <p class="tagline">${this.photographer.tagline}</p>
+      <h1 class="name" tabindex="0">${this.photographer.name}</h1>
+      <h2 class="city" tabindex="0">${this.photographer.city}, ${this.photographer.country}</h2>
+      <p class="tagline" tabindex="0">${this.photographer.tagline}</p>
       ${this.filter}
     </div>
     <button class="button" id="contact">Contactez-moi</button>
-    <img src="${portraits[this.photographer.portrait.replace('.jpg', '')]}" class="profile-avatar" alt="" width="250"/>
+    <img src="${portraits[this.photographer.portrait.replace('.jpg', '')]}" class="profile-avatar" alt="${this.photographer.name}" tabindex="0" />
   `
 }

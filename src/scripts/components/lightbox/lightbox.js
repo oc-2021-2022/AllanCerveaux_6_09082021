@@ -52,8 +52,12 @@ export class Lightbox extends Component {
     this.$('.modal-container').hide()
   }
 
-  async setMedia () {
-    const media = new MediaViewer(this.name, this.selectedMedia.image ?? this.selectedMedia.video)
+  setMedia () {
+    const media = new MediaViewer(this.name, {
+      src: this.selectedMedia.image ?? this.selectedMedia.video,
+      title: this.selectedMedia.title,
+      date: this.selectedMedia.date
+    })
     media.render().then(template => {
       this.$('.media-viewer').append(template)
       this.setPlayer()
@@ -74,7 +78,11 @@ export class Lightbox extends Component {
       <div class="lightbox-media">
         <a tabindex="3" aria-label="Previous image" href="#" id="previous">&lsaquo;</a>
         <div class="media-viewer">
-          ${await new MediaViewer(this.name, this.selectedMedia.image ?? this.selectedMedia.video).render()}
+          ${await new MediaViewer(this.name, {
+            src: this.selectedMedia.image ?? this.selectedMedia.video,
+            title: this.selectedMedia.title,
+            date: this.selectedMedia.date
+          }).render()}
           <h3 tabindex="2" aria-label="${this.selectedMedia.title}" class="title">${this.selectedMedia.title}</h3>
         </div>
         <a aria-label="Close dialog" href="#" id="close">&times;</a>
