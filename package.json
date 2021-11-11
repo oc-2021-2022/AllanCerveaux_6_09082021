@@ -22,12 +22,14 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
     "parcel": "^2.0.0-rc.0",
-    "sass": "^1.35.1"
+    "sass": "^1.35.1",
+    "sharp": "^0.29.1"
   },
   "dependencies": {
     "@babel/runtime-corejs2": "^7.15.3",
     "@fortawesome/fontawesome-free": "^5.15.4",
     "fortawesome": "^0.0.1-security",
-    "modularscale-sass": "^3.0.10"
+    "modularscale-sass": "^3.0.10",
+    "plyr": "^3.6.9"
   }
 }

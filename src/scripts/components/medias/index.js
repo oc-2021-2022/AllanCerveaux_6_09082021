@@ -1,4 +1,2 @@
-export { MediaCard } from './card/media-card'
-export { Lightbox } from './lightbox/lightbox'
-export { Media } from './media'
+export { MediaCard } from './media-card'
 export { MediaService } from './media-service'
