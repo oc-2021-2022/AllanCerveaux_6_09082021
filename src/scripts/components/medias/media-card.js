@@ -43,7 +43,7 @@ export class MediaCard extends Component {
     <div class="media-header" data-id="${this.media.id}">
       ${await new MediaViewer(this.name, this.media.image ?? this.media.video).render()}
     </div>
-    <div class="media-content">
+    <div class="media-content" role="banner">
       <h3 class="title">${this.media.title}</h3>
       <div class="like">
         <span class="like-counter">${this.media.likes}</span>

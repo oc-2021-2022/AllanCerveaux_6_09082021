@@ -12,7 +12,6 @@ export class Lightbox extends Component {
   }
 
   navigationEvent () {
-    document.querySelector('.lightbox').focus()
     this.$('#next').click(this.navigationControls)
     this.$('#previous').click(this.navigationControls)
     this.$('.lightbox')
@@ -20,9 +19,10 @@ export class Lightbox extends Component {
   }
 
   navigationControls = (event) => {
+    document.querySelector('.lightbox').focus()
     if (event.key === 'ArrowRight' || event.target.id === 'next') this.switchMedia('next')
     else if (event.key === 'ArrowLeft' || event.target.id === 'previous') this.switchMedia('previous')
-    else if (event.key === 'Escape') this.remove()
+    else if (event.key === 'Escape') this.close()
   }
 
   switchMedia = (payload) => {
@@ -39,13 +39,17 @@ export class Lightbox extends Component {
     this.setMedia()
   }
 
-  close = () => {
+  onClose = () => {
     this.$('#close').click(({ target }) => {
       if ((target.className !== 'media' && target.id !== 'previous' && target.id !== 'next') || target.id === 'close') {
-        this.$('.lightbox').remove()
-        this.$('.modal-container').hide()
+        this.close()
       }
     })
+  }
+
+  close = () => {
+    this.$('.lightbox').remove()
+    this.$('.modal-container').hide()
   }
 
   async setMedia () {

@@ -18,7 +18,7 @@ export class Modal extends Component {
       lightbox.render().then(template => {
         this.modalContainer.html(template)
         lightbox.navigationEvent()
-        lightbox.close()
+        lightbox.onClose()
         lightbox.setPlayer()
       })
     } else {

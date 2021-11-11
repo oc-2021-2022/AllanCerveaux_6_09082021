@@ -14,7 +14,7 @@ export class PhotographerCard extends Component {
 
   template = () => /* html */`
     <article class="card" aria-label="Photographer Card" data-tags="${this.photographer.tags}">
-      <div class="card-header">
+      <div class="card-header" role="banner">
         <a href="#" data-id="${this.photographer.id}" aria-label="${this.photographer.name}" >
           <img class="card-image rounded" src="${portraits[this.photographer.portrait.replace('.jpg', '')]}" alt=""/>
           <h2 class="title text-lg">
