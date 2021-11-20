@@ -1,4 +1,4 @@
-import { Query } from '../../../lib'
+import { Query } from '../../lib'
 
 export class FilterService {
   constructor () {

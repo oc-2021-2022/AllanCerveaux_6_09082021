@@ -1,8 +1,8 @@
 import { Component } from '../../lib'
+import { Filter } from '../filter'
 import { MediaCard, MediaService } from '../medias'
 import { Modal } from '../modal/modal'
 import { PhotographerProfile } from '../photographer'
-import { Filter } from '../shared/filter'
 
 export class Profile extends Component {
   constructor (photographer, media) {
@@ -21,7 +21,6 @@ export class Profile extends Component {
     this.profile.render().then((template) => {
       this.container.html(template)
       this.profile.onClick()
-      
     })
 
     this.generateMediaList(this.media)

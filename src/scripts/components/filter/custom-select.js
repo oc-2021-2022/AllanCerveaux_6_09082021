@@ -1,4 +1,4 @@
-import { Component } from '../../../lib/Component'
+import { Component } from '../../lib/Component'
 
 export class CustomSelect extends Component {
   constructor (options) {

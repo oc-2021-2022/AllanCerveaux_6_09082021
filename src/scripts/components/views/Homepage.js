@@ -6,13 +6,20 @@ export class Homepage extends Component {
     this.photographer = photographer
     this.container = this.$('#photographers')
     photographer.map(this.generatePhotographerCard)
+    this.selectedTag = ''
   }
 
   generatePhotographerCard = async (photographer) => {
     const card = await new PhotographerCard(photographer).render()
     this.container.append(card)
-    this.addEventTag()
     this.onClickLink()
+    this.$('.tag')
+      .on('click', ({ target }) => this.addEventTag(target))
+      .on('keydown', (event) => {
+        if (event.keyCode === 32 || event.key === 'Enter') {
+          this.addEventTag(event.target)
+        }
+      })
   }
 
   toggleCardList (tag, selectedTag) {
@@ -32,19 +39,22 @@ export class Homepage extends Component {
     })
   }
 
-  addEventTag () {
-    let selectedTag = ''
-    this.$('.tag').on('click', ({ target }) => {
-      this.resetTagStyle()
-      this.toggleCardList(this.$(target), selectedTag)
-      selectedTag = this.$(target).getAttribute('data-tag') === selectedTag ? '' : this.$(target).getAttribute('data-tag')
-    })
+  addEventTag = (target) => {
+    this.resetTagStyle()
+    this.toggleCardList(this.$(target), this.selectedTag)
+    this.selectedTag = this.$(target).getAttribute('data-tag') === this.selectedTag ? '' : this.$(target).getAttribute('data-tag')
   }
 
   resetTagStyle = () => this.$('.tag').each(tag => this.$(tag).hasClass('active') ? this.$(tag).removeClass('active') : null)
 
   onClickLink () {
-    this.$('.card-header>a').on('click', ({ target }) => document.dispatchEvent(new CustomEvent('go-to-profile', { detail: this.$(target.parentNode).getAttribute('data-id') })))
+    this.$('.card-header>a')
+      .on('click', ({ target }) => document.dispatchEvent(new CustomEvent('go-to-profile', { detail: this.$(target.parentNode).getAttribute('data-id') })))
+      .on('keydown', ({ keyCode, key, target }) => {
+        if (keyCode === 32 || key === 'Enter') {
+          document.dispatchEvent(new CustomEvent('go-to-profile', { detail: this.$(target).getAttribute('data-id') }))
+        }
+      })
   }
 
   destroy () {

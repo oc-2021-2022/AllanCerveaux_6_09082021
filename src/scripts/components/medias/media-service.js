@@ -1,5 +1,5 @@
 import { Network, Query } from '../../lib'
-import { FilterService } from '../shared/filter'
+import { FilterService } from '../filter'
 
 export class MediaService {
   constructor () {

@@ -1,4 +1,4 @@
-import { Component } from '../../../lib/Component'
+import { Component } from '../../lib/Component'
 import { CustomSelect } from './custom-select'
 import { FilterService } from './filter-service'
 export class Filter extends Component {
@@ -20,7 +20,17 @@ export class Filter extends Component {
   }
 
   onClick () {
-    if (this.active) this.$('.tag').on('click', ({ target }) => document.dispatchEvent(new CustomEvent('selected-tag', { detail: target })))
+    if (this.active) {
+      this.$('.tag')
+        .on('click', ({ target }) => {
+          document.dispatchEvent(new CustomEvent('selected-tag', { detail: target }))
+        })
+        .on('keydown', ({ key, keyCode, target }) => {
+          if (keyCode === 32 || key === 'Enter') {
+            document.dispatchEvent(new CustomEvent('selected-tag', { detail: target }))
+          }
+        })
+    }
   }
 
   toggleSelectList () {

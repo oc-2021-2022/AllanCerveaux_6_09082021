@@ -1,6 +1,6 @@
 import * as portraits from 'url:../../../resources/images/portraits/*.jpg'
 import { Component } from '../../lib/Component'
-import { Filter } from '../shared/filter'
+import { Filter } from '../filter'
 
 export class PhotographerProfile extends Component {
   constructor (photographer) {

@@ -27,7 +27,7 @@ export class Contact extends Component {
   template = () => /* html */`
   <section class="contact">
     <div class="contact-header">
-      <div class="info">
+      <div class="info" tabindex="0">
         <h2 class="title">Contactez-moi</h2>
         <p class="name">${this.name}</p>
       </div>
