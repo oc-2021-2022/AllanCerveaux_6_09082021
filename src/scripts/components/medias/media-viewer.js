@@ -12,10 +12,10 @@ export class MediaViewer extends Component {
   mediaSelector () {
     const currentMedia = images[this.photographer.split(' ').shift()][this.media.src]
     if (this.media.src.includes('.mp4')) {
-      return /* html */`<video id="player" src="${currentMedia}" >
+      return /* html */`<video id="player" src="${currentMedia}" alt="${this.photographer} - ${this.media.title} ${this.media.date}" tabindex="0">
       </video>`
     }
-    return /* html */`<img src="${currentMedia}" alt="${this.photographer} - ${this.media.title} ${this.media.date}" width="250"/>`
+    return /* html */`<img src="${currentMedia}" alt="${this.photographer} - ${this.media.title} ${this.media.date}" width="250" tabindex="0"/>`
   }
 
   template = () => /* html */`${this.mediaSelector()}`

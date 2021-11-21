@@ -26,6 +26,7 @@ export class Homepage extends Component {
     this.$('.card').each(card => {
       card = this.$(card)
       if (tag.getAttribute('data-tag') === selectedTag) {
+        if (this.$(tag).getAttribute('aria-selected')) this.$(tag).setAttribute('aria-selected', false)
         tag.removeClass('active')
         card.show()
         return
@@ -41,11 +42,15 @@ export class Homepage extends Component {
 
   addEventTag = (target) => {
     this.resetTagStyle()
+    this.$(target).setAttribute('aria-selected', true)
     this.toggleCardList(this.$(target), this.selectedTag)
     this.selectedTag = this.$(target).getAttribute('data-tag') === this.selectedTag ? '' : this.$(target).getAttribute('data-tag')
   }
 
-  resetTagStyle = () => this.$('.tag').each(tag => this.$(tag).hasClass('active') ? this.$(tag).removeClass('active') : null)
+  resetTagStyle = () => this.$('.tag').each(tag => {
+    if (this.$(tag).hasClass('active')) this.$(tag).removeClass('active')
+    if (this.$(tag).getAttribute('aria-selected')) this.$(tag).setAttribute('aria-selected', false)
+  })
 
   onClickLink () {
     this.$('.card-header>a')

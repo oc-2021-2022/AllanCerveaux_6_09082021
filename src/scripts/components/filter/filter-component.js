@@ -12,7 +12,7 @@ export class Filter extends Component {
 
   generateFilters = () => {
     if (this.type === 'tag') {
-      return this.tags.map(tag => /* html */`<span role="link" aria-label="${tag}" class="tag tag-button" data-tag="${tag}" tabindex="0" >#${tag}</span>`).join(' ')
+      return this.tags.map(tag => /* html */`<span role="link" aria-label="${tag}" class="tag tag-button" data-tag="${tag}" tabindex="0" aria-selected="false">#${tag}</span>`).join(' ')
     } else if (this.type === 'select') {
       this.customSelect = new CustomSelect(this.tags)
       return this.customSelect.render()

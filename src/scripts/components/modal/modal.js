@@ -13,6 +13,9 @@ export class Modal extends Component {
   generateModal () {
     this.modalContainer = this.$('.modal-container')
     this.modalContainer.element.style.display = 'flex'
+    this.modalContainer
+      .addId('modal')
+      .setAttribute('tabindex', '-1')
     if (this.type === 'lightbox') {
       const lightbox = new Lightbox(this.data.id, this.data.name, this.data.media)
       lightbox.render().then(template => {

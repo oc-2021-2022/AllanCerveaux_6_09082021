@@ -103,6 +103,11 @@ export class Manipulator {
     return this
   }
 
+  addId (id) {
+    this.element.id = id
+    return this
+  }
+
   addClass (...arg) {
     Array.isArray(arg) ? arg.forEach(str => this.element.classList.add(str)) : this.element.classList.add(arg)
     return this
