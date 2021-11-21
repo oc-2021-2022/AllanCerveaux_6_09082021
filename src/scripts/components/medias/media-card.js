@@ -31,18 +31,26 @@ export class MediaCard extends Component {
     }
   }
 
-  openModal() {
-    this.$('.media-header').on('click', ({ target }) => {
-      document.dispatchEvent(new CustomEvent('open-modal', {
-        detail: {
-          data: {
-            id: this.$(target).parent().getAttribute('data-id'),
-            name: this.name
-          },
-          type: 'lightbox'
+  openModal () {
+    this.$('.media-header>img, .media-header>video')
+      .on('click', ({ target }) => this.eventDispatch(target))
+      .on('keydown', ({ keyCode, key, target }) => {
+        if (keyCode === 32 || key === 'Enter') {
+          this.eventDispatch(target)
         }
-      }))
-    })
+      })
+  }
+
+  eventDispatch (target) {
+    document.dispatchEvent(new CustomEvent('open-modal', {
+      detail: {
+        data: {
+          id: this.$(target).parent().getAttribute('data-id'),
+          name: this.name
+        },
+        type: 'lightbox'
+      }
+    }))
   }
 
   template = async () => /* html */`

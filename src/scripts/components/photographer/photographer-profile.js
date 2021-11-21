@@ -1,6 +1,6 @@
 import * as portraits from 'url:../../../resources/images/portraits/*.jpg'
 import { Component } from '../../lib/Component'
-import { Filter } from '../shared/filter'
+import { Filter } from '../filter'
 
 export class PhotographerProfile extends Component {
   constructor (photographer) {
@@ -12,8 +12,18 @@ export class PhotographerProfile extends Component {
     this.filter = await new Filter('tag', this.photographer.tags).render()
   }
 
-  onClick () {
-    this.$('#contact').click(() => document.dispatchEvent(new CustomEvent('open-modal', { detail: { type: 'contact', data: { name: this.photographer.name } } })))
+  onClickContact () {
+    this.$('#contact')
+      .click(this.eventDispatch)
+      .keydown(({ keyCode, key }) => {
+        if (keyCode === 32 || key === 'Enter') {
+          this.eventDispatch()
+        }
+      })
+  }
+
+  eventDispatch = () => {
+    document.dispatchEvent(new CustomEvent('open-modal', { detail: { type: 'contact', data: { name: this.photographer.name } } }))
   }
 
   template = () => /* html */`

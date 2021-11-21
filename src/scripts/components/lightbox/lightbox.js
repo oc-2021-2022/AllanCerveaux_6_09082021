@@ -14,15 +14,14 @@ export class Lightbox extends Component {
   navigationEvent () {
     this.$('#next').click(this.navigationControls)
     this.$('#previous').click(this.navigationControls)
-    this.$('.lightbox')
+    this.$('#modal, #modal-lightbox')
       .keydown(this.navigationControls)
   }
 
   navigationControls = (event) => {
-    document.querySelector('.lightbox').focus()
-    if (event.key === 'ArrowRight' || event.target.id === 'next') this.switchMedia('next')
+    if (event.key === 'Escape') this.close()
+    else if (event.key === 'ArrowRight' || event.target.id === 'next') this.switchMedia('next')
     else if (event.key === 'ArrowLeft' || event.target.id === 'previous') this.switchMedia('previous')
-    else if (event.key === 'Escape') this.close()
   }
 
   switchMedia = (payload) => {
@@ -49,7 +48,9 @@ export class Lightbox extends Component {
 
   close = () => {
     this.$('.lightbox').remove()
-    this.$('.modal-container').hide()
+    this.$('.modal-container')
+      .hide()
+      .setAttribute('data-focus', false)
   }
 
   setMedia () {
@@ -74,19 +75,19 @@ export class Lightbox extends Component {
   }
 
   template = async () => /* html */`
-    <section class="lightbox" tabindex="0" aria-label="image closeup view">
+    <section id="modal-lightbox" class="lightbox" aria-label="image closeup view" tabindex="-1">
       <div class="lightbox-media">
-        <a tabindex="3" aria-label="Previous image" href="#" id="previous">&lsaquo;</a>
+        <a aria-label="Previous image" tabindex="0" href="#" id="previous">&lsaquo;</a>
         <div class="media-viewer">
           ${await new MediaViewer(this.name, {
             src: this.selectedMedia.image ?? this.selectedMedia.video,
             title: this.selectedMedia.title,
             date: this.selectedMedia.date
           }).render()}
-          <h3 tabindex="2" aria-label="${this.selectedMedia.title}" class="title">${this.selectedMedia.title}</h3>
+          <h3 tabindex="0" aria-label="${this.selectedMedia.title}" class="title">${this.selectedMedia.title}</h3>
         </div>
-        <a aria-label="Close dialog" href="#" id="close">&times;</a>
-        <a aria-label="Next image" href="#" id="next">&rsaquo;</a>
+        <a aria-label="Close dialog" href="#" id="close" tabindex="0">&times;</a>
+        <a aria-label="Next image" href="#" id="next" tabindex="0">&rsaquo;</a>
       </div>
     </section>
   `

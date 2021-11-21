@@ -1,6 +1,6 @@
 import * as portraits from 'url:../../../resources/images/portraits/*.jpg'
 import { Component } from '../../lib/Component'
-import { Filter } from '../shared/filter/filter-component'
+import { Filter } from '../filter'
 
 export class PhotographerCard extends Component {
   constructor (photographer) {
@@ -23,9 +23,9 @@ export class PhotographerCard extends Component {
         </a>
       </div>
       <div class="card-content">
-        <span class="city" >${this.photographer.city}, ${this.photographer.country}</span>
-        <p class="tagline" >${this.photographer.tagline.replace('&', "'")}</p>
-        <span class="price" >${this.photographer.price}&euro;/jour</span>
+        <span class="city" tabindex="0" aria-label="localisation">${this.photographer.city}, ${this.photographer.country}</span>
+        <p class="tagline" tabindex="0" aria-label="Phrase d'accroche">${this.photographer.tagline.replace('&', "'")}</p>
+        <span class="price" tabindex="0" aria-label="Information tarifaire">${this.photographer.price}&euro;/jour</span>
       </div>
       <div class="card-footer" >
         ${this.filter}

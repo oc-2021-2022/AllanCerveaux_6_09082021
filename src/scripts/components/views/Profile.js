@@ -1,8 +1,8 @@
 import { Component } from '../../lib'
+import { Filter } from '../filter'
 import { MediaCard, MediaService } from '../medias'
 import { Modal } from '../modal/modal'
 import { PhotographerProfile } from '../photographer'
-import { Filter } from '../shared/filter'
 
 export class Profile extends Component {
   constructor (photographer, media) {
@@ -20,8 +20,7 @@ export class Profile extends Component {
     this.profile = new PhotographerProfile(this.photographer)
     this.profile.render().then((template) => {
       this.container.html(template)
-      this.profile.onClick()
-      
+      this.profile.onClickContact()
     })
 
     this.generateMediaList(this.media)
@@ -39,7 +38,13 @@ export class Profile extends Component {
 
       filter.toggleSelectList()
       filter.selectTagOption()
-      this.$('.tag-option').on('click', this.sortMedia)
+      this.$('.tag-option')
+        .on('click', this.sortMedia)
+        .on('keydown', ({ keyCode, key, target }) => {
+          if (keyCode === 32 || key === 'Enter') {
+            this.sortMedia(target)
+          }
+        })
     })
 
     this.container
@@ -87,5 +92,6 @@ export class Profile extends Component {
   openModal = ({ detail }) => {
     const modal = new Modal(detail.type, { ...detail.data, media: this.media })
     modal.generateModal()
+    this.$('#modal').element.focus()
   }
 }

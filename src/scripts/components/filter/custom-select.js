@@ -1,4 +1,4 @@
-import { Component } from '../../../lib/Component'
+import { Component } from '../../lib/Component'
 
 export class CustomSelect extends Component {
   constructor (options) {
@@ -29,8 +29,10 @@ export class CustomSelect extends Component {
   }
 
   selectedTag (tag) {
-    this.$('.tag-option').each(tag => this.$(tag).removeAttribute('data-selected'))
-    this.$(tag).setAttribute('data-selected', true)
+    this.$('.tag-option').each(tag => this.$(tag).removeAttribute('data-selected').setAttribute('aria-selected', false))
+    this.$(tag)
+      .setAttribute('data-selected', true)
+      .setAttribute('aria-selected', true)
     this.$('.selected-option>span.option').text(tag.textContent)
     this.hideSelect()
   }
@@ -46,6 +48,6 @@ export class CustomSelect extends Component {
     <span class="option">${this.options[0]}</span>
     <span class="arrow">&bigvee;</span>
   </div>
-  <ul class="options-list" aria-hidden="true">${this.options.map(tag => /* html */`<li class="tag-option" role="option" data-tag="${tag}" tabindex="0">${tag}</li>`).join('')}</ul>
+  <ul class="options-list" aria-hidden="true">${this.options.map(tag => /* html */`<li class="tag-option" role="option" data-tag="${tag}" aria-selected="false" tabindex="0">${tag}</li>`).join('')}</ul>
   `
 }

@@ -1,4 +1,4 @@
-import { Component } from '../../../lib/Component'
+import { Component } from '../../lib/Component'
 import { CustomSelect } from './custom-select'
 import { FilterService } from './filter-service'
 export class Filter extends Component {
@@ -12,7 +12,7 @@ export class Filter extends Component {
 
   generateFilters = () => {
     if (this.type === 'tag') {
-      return this.tags.map(tag => /* html */`<span role="link" aria-label="${tag}" class="tag tag-button" data-tag="${tag}" tabindex="0" >#${tag}</span>`).join(' ')
+      return this.tags.map(tag => /* html */`<span role="link" aria-label="${tag}" class="tag tag-button" data-tag="${tag}" tabindex="0" aria-selected="false">#${tag}</span>`).join(' ')
     } else if (this.type === 'select') {
       this.customSelect = new CustomSelect(this.tags)
       return this.customSelect.render()
@@ -20,7 +20,17 @@ export class Filter extends Component {
   }
 
   onClick () {
-    if (this.active) this.$('.tag').on('click', ({ target }) => document.dispatchEvent(new CustomEvent('selected-tag', { detail: target })))
+    if (this.active) {
+      this.$('.tag')
+        .on('click', ({ target }) => {
+          document.dispatchEvent(new CustomEvent('selected-tag', { detail: target }))
+        })
+        .on('keydown', ({ key, keyCode, target }) => {
+          if (keyCode === 32 || key === 'Enter') {
+            document.dispatchEvent(new CustomEvent('selected-tag', { detail: target }))
+          }
+        })
+    }
   }
 
   toggleSelectList () {

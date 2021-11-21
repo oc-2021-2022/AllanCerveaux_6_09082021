@@ -1,7 +1,7 @@
-import { Component } from '../lib/Component'
+import { Component } from '../lib'
+import { Filter } from './filter'
 import { MediaService } from './medias'
 import { PhotographerService } from './photographer'
-import { Filter } from './shared/filter/filter-component'
 import { Homepage } from './views/Homepage'
 import { Profile } from './views/Profile'
 
@@ -24,13 +24,7 @@ export class App extends Component {
 
     this.homepage = new Homepage(this.photographers)
     document.addEventListener('go-to-profile', this.goToPhotographerProfile)
-    document.addEventListener('selected-tag', this.addEventTag)
-  }
-
-  addEventTag (target) {
-    this.resetTagStyle()
-    this.homepage.toggleCardList(this.$(target), this.selectedTag)
-    this.selectedTag = this.$(target).getAttribute('data-tag') === this.selectedTag ? '' : this.$(target).getAttribute('data-tag')
+    document.addEventListener('selected-tag', ({ detail }) => this.homepage.addEventTag(detail))
   }
 
   goToPhotographerProfile = async ({ detail }) => {
