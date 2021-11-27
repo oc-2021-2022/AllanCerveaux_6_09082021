@@ -38,6 +38,7 @@ export class MediaService {
         data = arr
         break
     }
+    console.log(data)
     return data
   }
 }
