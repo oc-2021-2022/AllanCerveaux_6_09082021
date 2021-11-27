@@ -40,9 +40,9 @@ export class Profile extends Component {
       filter.selectTagOption()
       this.$('.tag-option')
         .on('click', this.sortMedia)
-        .on('keydown', ({ keyCode, key, target }) => {
-          if (keyCode === 32 || key === 'Enter') {
-            this.sortMedia(target)
+        .on('keydown', (event) => {
+          if (event.keyCode === 32 || event.key === 'Enter') {
+            this.sortMedia(event)
           }
         })
     })
